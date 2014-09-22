@@ -73,6 +73,12 @@ ul.title li {
     padding-right: 10px;
 }
 
+.logo {
+  width: 100%;
+  height: 150px;
+  background: url('images/logo.png') no-repeat center center;
+}
+
 .menu {
     top: 25px;
     position: relative;
@@ -86,7 +92,7 @@ ul.title li {
     padding: 0;
     width: calc(100%);
     left: calc(50% - 470px);
-    bottom: calc(50% - 75px);
+    bottom: calc(50% - 175px);
 }
 
 .menu-items li:not(:last-child) {
@@ -182,7 +188,22 @@ div.footer, .footer-background {
 }
 
 .login-register {
-  padding-left: 420px;
+  padding-top: 50px;
+  padding-left: 280px;
+}
+
+.login, .register {
+  color: white;
+  font-weight: bold;
+  margin-left: 20px;
+  width: 160px;
+  background-color: #000742;
+  padding: 15px 0 15px 0;
+  border: none;
+}
+
+.login:hover, .register:hover {
+  background-color: #000E8F;
 }
 
 .seperator {
@@ -200,7 +221,7 @@ div.footer, .footer-background {
     }
     
     .login-register {
-      padding-left: 260px;
+      padding-left: 130px;
     }
     
     .menu-items {
@@ -223,9 +244,20 @@ div.footer, .footer-background {
        display: block;
     }
 
+    .login, .register {
+       margin-left: 5px;
+    }    
+    
+    .login-register {
+      padding-top: 5px;
+      position: relative;
+      padding-left: 0;
+      right: 5px;
+    }
+
     .menu-items {
         left: calc(50% - 165px);
-        bottom: calc(55% - 170px);
+        bottom: 0;
     }
     
 }
