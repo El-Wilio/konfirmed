@@ -84,7 +84,7 @@ ul.title li {
     position: absolute;
     display: block;
     padding: 0;
-    width: 100%;
+    width: calc(100%);
     left: calc(50% - 470px);
     bottom: calc(50% - 75px);
 }
@@ -94,6 +94,7 @@ ul.title li {
 }
 
 .box {
+    line-height: 0;
     display: inline-block;
     width: 160px;
     height: 160px;
@@ -180,12 +181,26 @@ div.footer, .footer-background {
    height: auto;
 }
 
+.login-register {
+  padding-left: 420px;
+}
+
+.seperator {
+  line-height: 0;
+  font-size: 0;
+  display: none;
+}
+
 /** Here is the responsive design part **/
 
 @media screen and (max-width: 1024px) {
 
     .menu-items li:not(:last-child) {
         padding-right: 0
+    }
+    
+    .login-register {
+      padding-left: 260px;
     }
     
     .menu-items {
@@ -195,14 +210,22 @@ div.footer, .footer-background {
 }
 
 @media screen and (max-width: 640px) {
-
+  
+   .menu-items li:not(:last-child) {
+        padding-right: 10px;
+    }
+    
     .box {
-        width: 25%;
+      margin-bottom: 10px;
+    }
+
+    .seperator {
+       display: block;
     }
 
     .menu-items {
-        left: 0;
-        bottom: 0;
+        left: calc(50% - 165px);
+        bottom: calc(55% - 170px);
     }
     
 }

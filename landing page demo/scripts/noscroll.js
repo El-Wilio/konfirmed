@@ -12,13 +12,13 @@ var dynamicSize = function() {
 }
 
 $(function() {
-    dynamicSize();
+    //dynamicSize();
     $(document).on('mousewheel', function(e) {
         e.preventDefault();
     });
     
     $(window).resize(function() {
-        dynamicSize();
+        //dynamicSize();
         $('.viewport').html($(this).width());
     });
     
