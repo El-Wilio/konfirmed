@@ -3,11 +3,9 @@
     <head>
         <title>Konfirmed</title>
         <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <meta class="viewport" name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <script src="scripts/noscroll.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
-        <script src="https://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+        <script src="scripts/noscroll.js"></script>
         <link rel="stylesheet" href="stylesheets/style.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
-        
+        <meta name="viewport" content="width=device-width"; maximum-scale=1.0; user-scalable=no/>
     </head>
     <body>
         <div class="navigation-background"></div>
@@ -33,7 +31,17 @@
                </li>
             </ul>
         </div>
+        <div class="footer-background"></div>
+        <div class="footer">
+            <ul class="footer footer-left">
+                <li>Insert copyright information here and contact information here</li>
+              
+            </ul>
+            <ul class="footer footer-right">
+                <li><img src="images/twitter-bird-icon.png" class="icon"></li>
+                <li><img src="images/facebook-icon.png" class="icon"></li>
+            </ul>
+        </div>
     </body>
-    
 </html>
   
