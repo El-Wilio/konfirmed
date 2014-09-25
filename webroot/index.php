@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Konfirmed</title>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,700,300,600' rel='stylesheet' type='text/css'>
         <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
         <meta class="viewport" name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <script src="scripts/noscroll.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>

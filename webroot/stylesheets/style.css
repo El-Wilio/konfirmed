@@ -15,19 +15,12 @@ body {
 
 p, li , a{
     color: #212121;
-}
-
-ul.footer li {
-    padding-top: 10px;
+    font-family: 'Open Sans', sans-serif;
 }
 
 a {
     text-decoration: none;
     transition: color 0.5s;
-}
-
-a:hover, ul.footer-right li > a:hover {
-    color: #9026CF;
 }
 
 div {
@@ -62,6 +55,11 @@ ul.title li {
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.navigation {
+    font-size: 12px;
+    font-weight: 600;
 }
 
 .navigation ul  {
@@ -107,6 +105,7 @@ ul.title li {
 }
 
 .box {
+    box-shadow: 5px 5px 10px 1px darkgray;
     line-height: 0;
     display: inline-block;
     width: 150px;
@@ -119,23 +118,27 @@ ul.title li {
 }
 
 .music {
-    background: url('../images/microphone.png') no-repeat center center,
+    background: url('../images/icon_music.png') no-repeat center center,
                 #FF1C00;
+    background-size: 150px auto;
 }
 
 .art {
-    background: url('../images/key.png') no-repeat center center,
+    background: url('../images/icon_art.png') no-repeat center center,
                 #FF1C00;
+    background-size: 150px auto;
 }
 
 .photography {
-    background: url('../images/cinema.png') no-repeat center center,
+    background: url('../images/icon_videography.png') no-repeat center center,
                 #FF1C00;
+    background-size: 150px auto;
 }
 
 .writer {
-    background: url('../images/writer.png') no-repeat center center,
+    background: url('../images/icon_writer.png') no-repeat center center,
                 #FF1C00;
+    background-size: 150px auto;
 }
 
 ul.footer-right li {
@@ -208,8 +211,10 @@ div.footer, .footer-background {
 }
 
 .login, .register {
+  font-size: 14px;
   color: white;
-  font-weight: bold;
+  font-style: italic;
+  font-family: 'Open Sans', sans-serif;
   margin-left: 20px;
   width: 150px;
   background-color: #000742;
