@@ -5,6 +5,7 @@
         <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
         <meta class="viewport" name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <script src="scripts/noscroll.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
+        <script src="scripts/login-register.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
         <script src="https://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
         <link rel="stylesheet" href="stylesheets/style.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
         
@@ -33,6 +34,10 @@
                </li>
             </ul>
         </div>
+        
+        <div class="darkfilter"></div>
+        <div class="login-register-box"></div>
+        
     </body>
     
 </html>

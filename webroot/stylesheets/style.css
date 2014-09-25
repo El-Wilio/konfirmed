@@ -217,6 +217,30 @@ div.footer, .footer-background {
   border: none;
 }
 
+.login-register-box {
+    background-color: white;
+    position: fixed;
+    top: calc(50% - 250px);
+    left: calc(50% - 250px);
+    display: none;
+    opacity: 0;
+    z-index: 1;
+    width: 500px;
+    height: 500px;
+}
+
+.darkfilter {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0;
+    z-index: 1;
+    display: none;
+}
+
 .login:hover, .register:hover {
   background-color: #000E8F;
 }
