@@ -25,6 +25,12 @@ $( function() {
     }
     
     $('.login').on('click', function() {
+      
+        $.ajax({
+          url: 'register.php',
+          success: function(result) {$('.login-register-box').append(result)}
+        })
+      
         triggerDarkFilter();
         triggerLoginRegisterBox();
     });
