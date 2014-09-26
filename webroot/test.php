@@ -12,8 +12,8 @@
 <p>This is a one-page-fits-all testing ground for the Konfirmed.com website. All the possible inputs and outputs for the site are on this page and may be tested here. Then, for integration, the function call instructions can easily be given to the front-end developer.</p>
 <h3>Login and Register</h3>
 <?php
-	if(true) {
-		echo "<h4>Logged in as: " . "someusername" . "</h4> - <a href=''>Logout</a>";
+	if(isset($_SESSION['LoggedInAs'])) {
+		echo "<h4>Logged in as: " . $_SESSION['LoggedInAs'] . "</h4> - <a href=''>Logout</a>";
 	} else {
 		echo "<h4>Not logged in.</h4>";
 	}
