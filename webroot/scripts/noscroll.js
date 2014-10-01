@@ -12,14 +12,22 @@ var dynamicSize = function() {
 }
 
 $(function() {
-    //dynamicSize();
+ var height = $(window).height();
+        var width = $(window).width();
+        if(height > width) {
+            $('.viewport').attr('content', 'height=device-width, initial-scale=1'); 
+        }//landscape mode
     $(document).on('mousewheel', function(e) {
         e.preventDefault();
     });
     
-    $(window).resize(function() {
-        //dynamicSize();
-        $('.viewport').html($(this).width());
+    $(window).on("orientationchange",function(){
+        var height = $(window).height();
+        var width = $(window).width();
+        if(height > width) {
+            $('.viewport').attr('content', 'height=device-width, initial-scale=1'); 
+        }//landscape mode
+        
     });
     
  });

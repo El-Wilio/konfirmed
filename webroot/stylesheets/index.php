@@ -4,7 +4,8 @@
         <title>Konfirmed</title>
         <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
         <script src="scripts/noscroll.js"></script>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="stylesheets/style.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
+        <meta name="viewport" content="width=device-width"; maximum-scale=1.0; user-scalable=no/>
     </head>
     <body>
         <div class="navigation-background"></div>
@@ -24,8 +25,8 @@
                 --><li><div class="writer box"></div></li>
                 <li>            
                    <div class="login-register">
-                       <button class="login">Login</button>
-                       <button class="register">Register</button>
+                       <button class="login">Login</button><!--
+                       --><button class="register">Register</button>
                    </div>
                </li>
             </ul>
