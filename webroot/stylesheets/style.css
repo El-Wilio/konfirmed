@@ -13,8 +13,8 @@ body {
     min-height: 400px;
 }
 
-p, li , a{
-    color: #212121;
+p, li , a, input, h1, h2, h3, h4, h5, h6{
+    color: #313131;
     font-family: 'Open Sans', sans-serif;
 }
 
@@ -23,7 +23,7 @@ a {
     transition: color 0.5s;
 }
 
-div {
+div.music, div.art, div.photography, div.writer {
     line-height: 0;
 }
 
@@ -225,13 +225,63 @@ div.footer, .footer-background {
 .login-register-box {
     background-color: white;
     position: fixed;
-    top: calc(50% - 250px);
-    left: calc(50% - 250px);
+    top: 10%;
+    left: calc(50% - 500px);
     display: none;
     opacity: 0;
     z-index: 1;
-    width: 500px;
-    height: 500px;
+    width: 1000px;
+}
+
+.registration-info {
+  float: left;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: calc(50% - 20px);
+  position: relative;
+}
+
+.registration-info > h1 {
+  margin-top: 20px;
+}
+
+.registration-form {
+  padding-top: 20px;
+  margin: 10px;
+  float: left;
+  width: calc(50% - 22px);
+  height: calc(100% - 42px);
+  position: relative;
+}
+
+.register-input {
+  border-radius: 5px;
+  border: 1px solid darkgray;
+  padding: 5px;
+  font-size: 16px;
+  margin: 0 auto 20px auto;
+  display: block;
+  width: 60%;
+}
+
+.register-submit {
+  padding: 5px;
+  display: block;
+  width: 30%;
+  border: none;
+  margin: 0 calc(20% - 10px);
+  background-color: #000742;
+  color: white;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.register-input:focus, .login-input:focus {
+  outline: none;
+}
+
+.registration-info::after, .registration-form::after {
+  clear: both;
 }
 
 .darkfilter {
@@ -270,6 +320,18 @@ div.footer, .footer-background {
         left: calc(50% - 300px);
     }
     
+  .registration-info {
+    width: calc(100% - 20px);
+  }
+
+  .register-input {
+    margin: 20px 0;  
+  }    
+    
+  .registration-form {
+    width: calc(100% - 22px);
+  }
+
 }
 
 @media all and (max-width: 640px) {

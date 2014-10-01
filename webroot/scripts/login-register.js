@@ -2,14 +2,16 @@ $( function() {
 
     var resizeLoginRegisterBox = function() {
         if($(window).width() <= 640) {
-            $('.login-register-box').css( {'width': '400px', 'height': '400px',
-                 'left': 'calc(50% - 200px)', top: 'calc(50% - 200px)'
-            })
+            $('.login-register-box').css( {'width': '100%',
+                 'left': '0'})
+        }
+        if($(window).width() <= 1024) {
+            $('.login-register-box').css( {'width': '640px',
+                 'left': 'calc(50% - 320px)'})
         }
         else {
-            $('.login-register-box').css( {'width': '500px', 'height': '500px',
-                 'left': 'calc(50% - 250px)', top: 'calc(50% - 250px)'
-            })
+            $('.login-register-box').css( {'width': '1000px',
+                 'left': 'calc(50% - 500px)'})
         }
     }
 
