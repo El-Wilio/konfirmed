@@ -13,14 +13,24 @@ body {
     min-height: 400px;
 }
 
-p, li , a, input, h1, h2, h3, h4, h5, h6{
+p, li , a, input, h1, h2, h3, h4, h5, h6, span{
     color: #313131;
     font-family: 'Open Sans', sans-serif;
+}
+
+p.notice {
+    opacity: 0.0;
 }
 
 a {
     text-decoration: none;
     transition: color 0.5s;
+}
+
+a.close-it {
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
 
 div.music, div.art, div.photography, div.writer {
@@ -72,7 +82,7 @@ ul.title li {
 
 .navigation ul > li {
     position: relative;
-    top: 12px;
+    top: 6px;
     padding-right: 10px;
 }
 
@@ -236,8 +246,8 @@ div.footer, .footer-background {
 .registration-info {
   float: left;
   padding-left: 10px;
-  padding-right: 10px;
-  width: calc(50% - 20px);
+  padding-right: 100px;
+  width: calc(65% - 110px);
   position: relative;
 }
 
@@ -246,41 +256,71 @@ div.footer, .footer-background {
 }
 
 .registration-form {
+
   padding-top: 20px;
   margin: 10px;
   float: left;
-  width: calc(50% - 22px);
-  height: calc(100% - 42px);
+  width: calc(35% - 20px);
+  height: calc(100% - 40px);
+  position: relative;
+}
+
+.registration-errors{
+  margin-top: 10px;
+  float: left;
+  width: calc(20%);
   position: relative;
 }
 
 .register-input {
+  border: 1px solid darkgray;
+  padding: 10px;
+  font-size: 16px;
+  margin: 0 10px 20px auto;
+  display: inline-block;
+  width: 80%;
+}
+
+.login-input {
   border-radius: 5px;
   border: 1px solid darkgray;
   padding: 5px;
   font-size: 16px;
-  margin: 0 auto 20px auto;
-  display: block;
-  width: 60%;
+  margin: 10px auto 10px;
+  display: inline-block;
+  width: 25%;
 }
 
+
 .register-submit {
-  padding: 5px;
+  padding: 10px;
   display: block;
   width: 30%;
   border: none;
-  margin: 0 calc(20% - 10px);
+  margin: 0;
   background-color: #000742;
   color: white;
   font-weight: bold;
   font-style: italic;
 }
 
+.good {
+    background: url('../images/upvote.png') no-repeat;
+    background-size: 30px 30px;
+    background-position: right center;
+}
+
+.bad {
+    background: url('../images/downvote.png') no-repeat;
+    background-size: 30px 30px;
+    background-position: right center;
+}
+
 .register-input:focus, .login-input:focus {
   outline: none;
 }
 
-.registration-info::after, .registration-form::after {
+.registration-info::after, .registration-form::after , .registration-errors::after{
   clear: both;
 }
 

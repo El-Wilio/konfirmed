@@ -1,2 +1,6 @@
-<h1 style="text-align: center">Under Construction</h1>
-<p style="text-align: center">Please refresh this page.</h1>
+<a href="#" class="close-it">close</a>
+<input type="email" name="email" class="login-input email-input" 
+    placeholder="Please type in your email.">
+<span class="email_taken" style="font-size: 12px; display: block; position: relative; bottom: 10px;"></span>
+<input type="password" name="password" class="login-input password-input" 
+    placeholder="Please enter your password.">

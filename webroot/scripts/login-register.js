@@ -17,20 +17,20 @@ $( function() {
 
     var triggerDarkFilter = function() {
         $('.darkfilter').toggle(0);
-        $('.darkfilter').animate({'opacity': 0.6}, 600);
+        $('.darkfilter').animate({'opacity': 0.0}, 0).animate({'opacity': 0.6}, 600);
     }
 
     var triggerLoginRegisterBox = function() {
         
         $('.login-register-box').toggle(0);
-        $('.login-register-box').animate({'opacity': 1.0}, 600); 
+        $('.login-register-box').animate({'opacity': 0.0}, 0).animate({'opacity': 1.0}, 600); 
     }
     
     $('.login').on('click', function() {
       
         $.ajax({
           url: 'login.php',
-          success: function(result) {$('.login-register-box').append(result)}
+          success: function(result) {$('.login-register-box').html(result)}
         })
       
         triggerDarkFilter();
@@ -41,7 +41,7 @@ $( function() {
       
         $.ajax({
           url: 'register.php',
-          success: function(result) {$('.login-register-box').append(result)}
+          success: function(result) {$('.login-register-box').html(result)}
         })
       
         triggerDarkFilter();
@@ -51,6 +51,8 @@ $( function() {
     $(window).on('resize', function() {
         resizeLoginRegisterBox();
     });
+    
+    /**ajax coding part **/
     
     resizeLoginRegisterBox();
     
