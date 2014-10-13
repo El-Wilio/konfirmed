@@ -1,21 +1,28 @@
 html, body {
     margin: 0;
     padding-left: 0;
-    overflow: hidden;
     height: 100%;
     width: 100%;
     background: url('../images/pattern.png');
     background-color: white;
 }
 
-body {
-    min-width: 220px;
-    min-height: 400px;
+html {
+    overflow-x: hidden;
 }
 
-p, li , a{
-    color: #212121;
+body {
+    min-width: 220px;
+    min-height: 380px;
+}
+
+p, li , a, input, h1, h2, h3, h4, h5, h6, span{
+    color: #313131;
     font-family: 'Open Sans', sans-serif;
+}
+
+p.notice {
+    opacity: 0.0;
 }
 
 a {
@@ -23,7 +30,14 @@ a {
     transition: color 0.5s;
 }
 
-div {
+a.close-it {
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+div.music, div.art, div.photography, div.writer {
     line-height: 0;
 }
 
@@ -72,7 +86,7 @@ ul.title li {
 
 .navigation ul > li {
     position: relative;
-    top: 12px;
+    top: 6px;
     padding-right: 10px;
 }
 
@@ -92,11 +106,11 @@ ul.title li {
 }
 
 .menu-items{
+    background-color: green;
     position: relative;
+    margin-left: calc(50% - 450px);
     display: block;
     padding: 0;
-    width: calc(100%);
-    left: calc(50% - 450px);
     top: 15%;
 }
 
@@ -222,16 +236,113 @@ div.footer, .footer-background {
   border: none;
 }
 
-.login-register-box {
+.login-box, .register-box {
     background-color: white;
     position: fixed;
-    top: calc(50% - 250px);
-    left: calc(50% - 250px);
     display: none;
     opacity: 0;
     z-index: 1;
-    width: 500px;
-    height: 500px;
+}
+
+.register-box {
+    left: calc(50% - 512px);
+    width: 1024px;
+    top: 10%;
+}
+
+.login-box {
+    top: 30%;
+    left: calc(50% - 240px);
+    width: 480px;
+}
+
+.registration-info {
+  float: left;
+  padding-left: 10px;
+  padding-right: 100px;
+  width: calc(65% - 110px);
+  position: relative;
+}
+
+.registration-info > h1 {
+  margin-top: 20px;
+}
+
+.registration-form {
+  padding-top: 20px;
+  margin: 10px;
+  float: left;
+  width: calc(35% - 20px);
+  height: calc(100% - 40px);
+  position: relative;
+}
+
+.registration-errors{
+  margin-top: 10px;
+  float: left;
+  width: calc(20%);
+  position: relative;
+}
+
+.register-input, .login-input {
+  border: 1px solid darkgray;
+  padding: 10px;
+  font-size: 16px;
+  margin: 0 10px 20px auto;
+  display: inline-block;
+}
+
+.register-input {
+  width: 80%;
+}
+
+.login-input {
+  margin-top: 10px;
+  margin-left: 30%;
+  width: 40%;
+}
+
+.register-submit {
+  padding: 10px;
+  display: block;
+  width: 30%;
+  border: none;
+  margin: 0;
+  background-color: #000742;
+  color: white;
+  font-weight: bold;
+}
+
+.login-submit {
+  padding: 10px;
+  display: block;
+  width: calc(40% + 20px);
+  border: none;
+  margin-left: calc(30%);
+  margin-bottom: 10px;
+  background-color: #000742;
+  color: white;
+  font-weight: bold;
+}
+
+.good {
+    background: url('../images/upvote.png') no-repeat;
+    background-size: 30px 30px;
+    background-position: right center;
+}
+
+.bad {
+    background: url('../images/downvote.png') no-repeat;
+    background-size: 30px 30px;
+    background-position: right center;
+}
+
+.register-input:focus, .login-input:focus {
+  outline: none;
+}
+
+.registration-info::after, .registration-form::after , .registration-errors::after{
+  clear: both;
 }
 
 .darkfilter {
@@ -256,6 +367,23 @@ div.footer, .footer-background {
 
 /** Here is the responsive design part **/
 
+@media all and (max-height: 460px) and (max-width: 1024px){
+
+  .register-box {
+    height: 100%;
+    top: 0;
+  }
+
+}
+
+@media all and (max-height: 460px) {
+
+  .login-box {
+    top: 15%;
+  }
+  
+}
+
 @media all and (max-width: 1024px) {
 
     .menu-items li:not(:last-child) {
@@ -269,7 +397,31 @@ div.footer, .footer-background {
     .menu-items {
         left: calc(50% - 300px);
     }
+
+
+  .register-box {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: 640px;    
+    left: calc(50% - 320px);
+  }   
     
+  .registration-info {
+    width: calc(100% - 110px);
+  }
+
+  .register-input {
+    margin: 20px 0;  
+  }
+  
+  .register-submit {
+    margin-bottom: 10px;  
+  }    
+    
+  .registration-form {
+    width: calc(100% - 20px);
+  }
+
 }
 
 @media all and (max-width: 640px) {
@@ -295,6 +447,11 @@ div.footer, .footer-background {
       position: relative;
       padding-left: 0;
       right: 10px;
+    }
+    
+    .register-box {
+      width: 90%;
+      left: 5%;
     }
     
     .logo {
@@ -393,4 +550,25 @@ div.footer, .footer-background {
     .menu-items {
         left: calc(50% - 110px);
     }
+}
+
+@media all and (max-width: 480px) {
+
+    .login-box {
+        width: 100%;
+        left: 0;
+    }
+    .register-box {
+       height: 75%;
+       top: 10%;
+    }   
+}
+
+@media all and (max-height: 800px) and (max-width: 1024px){
+
+  .register-box {
+    height: 100%;
+    top: 0;
+  }
+
 }

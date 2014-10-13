@@ -1,4 +1,7 @@
 <?php
+
+include_once(dirname( __FILE__ ).'/../config.php');
+
 //Include classes
 $classes = scandir("../code/classes");
 foreach($classes as $filename) {
@@ -9,10 +12,7 @@ foreach($classes as $filename) {
 
 //Temporary code
 function selectStarFromProfile() {
-	$con = mysqli_connect("konfirmedcom.fatcowmysql.com", "cbarrieau", "K0nfirmed12.", "db_konfirmed");
-	if(mysqli_connect_errno()) {
-		echo "Failed to connect to MySQL: " . mysqli_connect_error();	
-	}
+	$con = connectToDatabase();
 	$result = mysqli_query($con, "Select * From profile");
 	while($row = mysqli_fetch_array($result)) {
 		echo $row['id'] . " - " . $row['name'];

@@ -37,9 +37,9 @@
         </div>
         
         <div class="darkfilter"></div>
-        <div class="login-register-box"></div>
+        <div class="register-box"></div>
+        <div class="login-box"></div>
         
     </body>
     
 </html>
-  

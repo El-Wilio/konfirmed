@@ -1,56 +1,46 @@
 $( function() {
 
-    var resizeLoginRegisterBox = function() {
-        if($(window).width() <= 640) {
-            $('.login-register-box').css( {'width': '400px', 'height': '400px',
-                 'left': 'calc(50% - 200px)', top: 'calc(50% - 200px)'
-            })
-        }
-        else {
-            $('.login-register-box').css( {'width': '500px', 'height': '500px',
-                 'left': 'calc(50% - 250px)', top: 'calc(50% - 250px)'
-            })
-        }
-    }
-
     var triggerDarkFilter = function() {
         $('.darkfilter').toggle(0);
-        $('.darkfilter').animate({'opacity': 0.6}, 600);
+        $('.darkfilter').animate({'opacity': 0.0}, 0).animate({'opacity': 0.6}, 600);
     }
 
-    var triggerLoginRegisterBox = function() {
+    var triggerLoginBox = function() {
         
-        $('.login-register-box').toggle(0);
-        $('.login-register-box').animate({'opacity': 1.0}, 600); 
+        $('.login-box').toggle(0);
+        $('.login-box').animate({'opacity': 0.0}, 0).animate({'opacity': 1.0}, 600); 
+    }
+    
+    var triggerRegisterBox = function() {
+        
+        $('.register-box').toggle(0);
+        $('.register-box').animate({'opacity': 0.0}, 0).animate({'opacity': 1.0}, 600); 
     }
     
     $('.login').on('click', function() {
       
         $.ajax({
           url: 'login.php',
-          success: function(result) {$('.login-register-box').append(result)}
+          success: function(result) {$('.login-box').html(result)}
         })
       
         triggerDarkFilter();
-        triggerLoginRegisterBox();
+        triggerLoginBox();
     });
     
     $('.register').on('click', function() {
       
         $.ajax({
           url: 'register.php',
-          success: function(result) {$('.login-register-box').append(result)}
+          success: function(result) {$('.register-box').html(result)}
         })
       
         triggerDarkFilter();
-        triggerLoginRegisterBox();
+        triggerRegisterBox();
     });
     
-    $(window).on('resize', function() {
-        resizeLoginRegisterBox();
-    });
     
-    resizeLoginRegisterBox();
+    /**ajax coding part **/
     
     
 });
