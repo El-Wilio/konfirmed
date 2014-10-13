@@ -7,6 +7,8 @@ foreach($classes as $filename) {
 	}
 }
 
+<<<<<<< HEAD
+=======
 //Temporary code
 function connectToDatabase() {
 	$con = mysqli_connect("konfirmedcom.fatcowmysql.com", "cbarrieau", "K0nfirmed12.", "db_konfirmed");
@@ -83,6 +85,7 @@ function updateSubmission() {
 }
 
 //Delete
+>>>>>>> origin/chris
 
 
 ?>

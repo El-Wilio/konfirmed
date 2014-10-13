@@ -6,6 +6,13 @@
 </head>
 
 <body>
+<<<<<<< HEAD
+<?php
+include("../code/backbone.php");
+$something = New Something();
+$something->talk();
+?>
+=======
 <?php include("../code/backbone.php"); ?>
 <h1>Master Back-End Testing Page</h1>
 <h2>Intro and information</h2>
@@ -75,5 +82,6 @@
     	</div>
 <h3>Contact Page</h3>
 <h4>Send email with AJAX confirm</h4>
+>>>>>>> origin/chris
 </body>
 </html>
