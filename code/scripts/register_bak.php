@@ -11,7 +11,7 @@
 		if($email1 != $email2) { $errMessage .= "Your email addresses do not match.<br />";}
 		if($pass1 != $pass2) { $errMessage .= "Your passwords do not match.<br />";}
 		
-		if(checkForAvailableUsername($email1)) {
+		if(checkForAvailableUsername($username)) {
 			echo "<p>Username available</p>";
 			$salt = makeSalt();
 			$encryptedPassword = crypt($pass1, $salt);
@@ -28,7 +28,7 @@
 		$con = connectToDatabase();
 		$result = mysqli_query($con, "Select username From account");
 		$found = false;
-		while($row = mysqli_fetch_array($result)) {				
+		while($row = mysqli_fetch_array($result)) {
 				if($username == $row['username']) {
 					$found = true;	
 					break;
