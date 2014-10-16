@@ -1,4 +1,3 @@
-<a href="#" class="close-it">close</a>
 <div class="registration-info">
   <h1>Registration</h1>
   <p>In order to access this website features you need to create an account which will only take
@@ -21,7 +20,7 @@
         placeholder="Please confirm your password.">
         <div class="button-field"><button class="register-submit">Register</button></div>
 </div>
- 
+<a href="#" class="close-it">close</a> 
     <script>
     
         var isItTaken = false;
@@ -160,9 +159,9 @@
             e.preventDefault();
             $('.darkfilter').toggle(0);
             $('.darkfilter').animate({'opacity': 0.0}, 0);
-            $('.login-register-box').toggle(0);
-            $('.login-register-box').animate({'opacity': 0.0}, 0);
-            $('.login-register-box').empty();
+            $('.register-box').toggle(0);
+            $('.register-box').animate({'opacity': 0.0}, 0);
+            $('.register-box').empty();
         });
         
     </script>

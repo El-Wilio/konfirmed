@@ -1,0 +1,258 @@
+html, body {
+    margin: 0;
+    padding-left: 0;
+    height: 100%;
+    width: 100%;
+    background: url('../images/pattern.png');
+    background-color: white;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+body {
+    min-width: 220px;
+    min-height: 380px;
+}
+
+p, li , a, input, h1, h2, h3, h4, h5, h6, span{
+    color: #313131;
+    font-family: 'Open Sans', sans-serif;
+}
+
+p.notice {
+    opacity: 0.0;
+}
+
+a {
+    text-decoration: none;
+    transition: color 0.5s;
+}
+
+a.close-it {
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+div.music, div.art, div.photography, div.writer {
+    line-height: 0;
+}
+
+ul.inline  > li{
+    display: inline;
+}
+
+ul.title {
+    position: absolute;
+    left: 10px;
+}
+
+ul.title li {
+    font-size: 25px;
+}
+
+.right {
+    text-align: right;
+}
+
+.navigation-background {
+     opacity: 0.1;
+     background-color: black;
+}
+
+.navigation, .navigation-background {
+    width: 100%;
+    height: 25px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.navigation {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.navigation ul  {
+    margin-top: 0;
+    list-style-type: none;
+    padding-left: 0;
+    width: 100%;
+    display: inline-block;
+}
+
+.navigation ul > li {
+    position: relative;
+    top: 6px;
+    padding-right: 10px;
+}
+
+.left-content {
+    position: relative;
+    top: 120px;
+    width: 50%;
+    float: left;
+}
+
+p.info {
+    margin-left: calc(50% - 150px);
+}
+
+.right-content {
+    position: relative;
+    top: 150px;
+    width: 50%;
+    float: left;
+}
+
+.contact-input, .contact-area, .contact-submit{
+    padding: 10px;
+    font-size: 16px;
+    margin: 0 0 30px 0;
+    display: block;
+}
+
+.contact-input, .contact-area {
+    width: 80%;
+}
+
+.contact-submit {
+    width: 150px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #000742;
+    border: none;
+}
+
+.right-content::after, .left-content::after {
+    clear: both;
+}
+
+.logo {
+  width: 100%;
+  height: 150px;
+  background: url('../images/logo.png') no-repeat center center;
+}
+
+.menu {
+    top: 25px;
+    position: relative;
+    width: 100%;
+    height: calc(100% - 55px);
+}
+
+ul.footer-right li {
+    padding-right: 20px;
+    color: white;
+}
+
+ul.footer li > a {
+    color: white;
+}
+
+ul.footer li {
+    display: inline;
+    padding-left: 0;
+}
+
+ul.footer-left {
+    left: calc(50% - 446px);
+    bottom: 5px;
+}
+
+ul.footer-right {
+    position: absolute;
+    right: calc(-50% - 75px);
+}
+
+ul.footer {
+    padding-top: 0;
+    padding-left: 0;
+    display: inline-block;
+    margin-top: 0;
+    margin-left: 0;
+    list-style-type: none;
+    position: relative;
+}
+
+.footer-background {
+    opacity: 0.1;
+    background-color: #4C146D;
+}
+
+div.footer {
+    font-size: 12px;
+}
+
+div.footer, .footer-background {
+    padding-top: 5px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+}
+
+@-ms-viewport{
+  width: device-width;
+}
+
+/** Here is the responsive design part **/
+
+
+@media all and (max-width: 1024px) {
+
+.left-content, .right-content {
+    width: 100%;
+}
+
+.contact-submit, .contact-input, .contact-area {
+    margin-left: 10%;
+}
+
+
+}
+
+@media all and (max-width: 640px) {
+
+}
+
+@media all and (max-width: 355px) {
+  
+    
+}
+
+@media all and (max-height: 610px) and (max-width: 640px){
+
+}
+
+@media all and (max-height: 610px) and (max-width: 355px){
+
+}
+
+@media all and (max-height: 570px) and (max-width: 640px){
+
+
+}
+
+@media all and (max-height: 525px) and (max-width: 640px){
+
+}
+
+@media all and (max-height: 525px) and (max-width: 355px){
+
+}
+
+@media all and (max-width: 480px) {
+
+  
+}
+
+@media all and (max-height: 800px) and (max-width: 1024px){
+
+}
