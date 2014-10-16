@@ -1,4 +1,7 @@
 <?php
+
+include_once(dirname( __FILE__ ).'/config.php');
+
 //Include classes
 $classes = scandir("../code/classes");
 foreach($classes as $filename) {
@@ -7,9 +10,7 @@ foreach($classes as $filename) {
 	}
 }
 
-<<<<<<< HEAD
-=======
-//Temporary code
+
 function connectToDatabase() {
 	$con = mysqli_connect("konfirmedcom.fatcowmysql.com", "cbarrieau", "K0nfirmed12.", "db_konfirmed");
 	if(mysqli_connect_errno()) {
@@ -22,6 +23,16 @@ function connectToDatabase() {
 	//}
 	//mysqli_close($con);
 	return $con;
+
+function selectStarFromProfile() {
+	$con = connectToDatabase();
+	$result = mysqli_query($con, "Select * From profile");
+	while($row = mysqli_fetch_array($result)) {
+		echo $row['id'] . " - " . $row['name'];
+		echo "<br />";
+	}
+	mysqli_close($con);	
+
 }
 //Select
 function selectProfile() {
@@ -85,7 +96,6 @@ function updateSubmission() {
 }
 
 //Delete
->>>>>>> origin/chris
 
 
 ?>

@@ -1,5 +1,6 @@
 <?php 
 
+<<<<<<< HEAD
 	$email = $_POST['txtRegisterUsername'];
 	$pass = $_POST['passRegisterPassword'];
 	$confirmPass = $_POST['passRegisterConfirmPassword'];
@@ -20,12 +21,49 @@
 		
 		if($errMessage == "") { $errMessage = "success"; }
 		return $errMessage;
+=======
+    include_once(dirname( __FILE__ ).'/../config.php');
+
+    function validateEmail($email) {
+    
+        $regex = '/^\w+@\w+\.\w{2,4}(\.\w{2,4})?$/';
+        
+        if(preg_match($regex, $email) == 1) return true;
+        else return false;
+        
+    }
+    
+	function register($email1, $email2, $pass1, $pass2) {
+        
+		if($email1 != $email2) { $errormessage = 'email confirmation error' ;}
+        else if(strlen($pass1) < 5) { $errormessage = 'password too short'; }
+		else if($pass1 != $pass2) {   $errormessage = 'password confirmation error';}
+        else if(!validateEmail($email1)) { $errormessage = 'email validation error'; } 
+		
+		else if(!checkForAvailableUsername($email1)) {
+            $errormessage = 'this email was already taken';
+		}
+        
+        else { 
+        
+        	$salt = makeSalt();
+			$encryptedPassword = crypt($pass1, $salt);
+			makeAccount($email1, $encryptedPassword, $salt);
+        
+            $errormessage = 'noerror'; 
+        
+        }
+        
+        return $errormessage;
+		
+>>>>>>> william
 	}
 	
 	
 	//Start do not call
 	function checkForAvailableUsername($username) {
 		$con = connectToDatabase();
+<<<<<<< HEAD
 		$result = mysqli_query($con, "Select username From account");
 		$found = false;
 		while($row = mysqli_fetch_array($result)) {				
@@ -33,6 +71,15 @@
 					$found = true;	
 					break;
 				}
+=======
+		$result = mysqli_query($con, "Select * FROM account WHERE username='$username'");
+		$found = false;
+		while($row = mysqli_fetch_array($result)) {
+			if($username == $row['username']) {
+				$found = true;	
+                break;
+			}
+>>>>>>> william
 		}
 		mysqli_close($con);
 		return !$found;
@@ -51,6 +98,7 @@
 		mysqli_close($con);
 	}
 	
+<<<<<<< HEAD
 	function connectToDatabase() {
 		$con = mysqli_connect("konfirmedcom.fatcowmysql.com", "cbarrieau", "K0nfirmed12.", "db_konfirmed");
 		if(mysqli_connect_errno()) {
@@ -58,4 +106,6 @@
 		}
 		return $con;
 	}
+=======
+>>>>>>> william
 ?>

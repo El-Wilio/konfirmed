@@ -12,7 +12,11 @@ html {
 }
 
 body {
+<<<<<<< HEAD
     min-width: 320px;
+=======
+    min-width: 220px;
+>>>>>>> william
     min-height: 380px;
 }
 
@@ -106,6 +110,7 @@ ul.title li {
 }
 
 .menu-items{
+    background-color: green;
     position: relative;
     margin-left: calc(50% - 450px);
     display: block;
@@ -250,7 +255,10 @@ div.footer, .footer-background {
 }
 
 .login-box {
+<<<<<<< HEAD
     text-align: center;
+=======
+>>>>>>> william
     top: 30%;
     left: calc(50% - 240px);
     width: 480px;
@@ -298,6 +306,7 @@ div.footer, .footer-background {
 
 .login-input {
   margin-top: 10px;
+<<<<<<< HEAD
   width: 40%;
 }
 
@@ -305,6 +314,12 @@ span.error {
     font-size: 11px;
 }
 
+=======
+  margin-left: 30%;
+  width: 40%;
+}
+
+>>>>>>> william
 .register-submit {
   padding: 10px;
   display: block;
@@ -321,7 +336,11 @@ span.error {
   display: block;
   width: calc(40% + 20px);
   border: none;
+<<<<<<< HEAD
   margin-left: calc(30% - 15px);
+=======
+  margin-left: calc(30%);
+>>>>>>> william
   margin-bottom: 10px;
   background-color: #000742;
   color: white;
@@ -408,6 +427,7 @@ span.error {
     width: 640px;    
     left: calc(50% - 320px);
   }   
+<<<<<<< HEAD
     
   .registration-info {
     width: calc(100% - 110px);
@@ -421,6 +441,21 @@ span.error {
     margin-bottom: 10px;  
   }    
     
+=======
+    
+  .registration-info {
+    width: calc(100% - 110px);
+  }
+
+  .register-input {
+    margin: 20px 0;  
+  }
+  
+  .register-submit {
+    margin-bottom: 10px;  
+  }    
+    
+>>>>>>> william
   .registration-form {
     width: calc(100% - 20px);
   }
@@ -561,6 +596,17 @@ span.error {
         width: 100%;
         left: 0;
     }
+<<<<<<< HEAD
+=======
+}
+
+@media all and (max-width: 480px) {
+
+    .login-box {
+        width: 100%;
+        left: 0;
+    }
+>>>>>>> william
     .register-box {
        height: 75%;
        top: 10%;

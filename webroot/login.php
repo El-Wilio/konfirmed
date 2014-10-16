@@ -5,6 +5,7 @@
 <input type="password" name="password" class="login-input password-input" 
     placeholder="Please enter your password.">
 <button class="login-submit">login</button>
+<<<<<<< HEAD
 <span class="error"></span>
 
 <script>
@@ -32,6 +33,11 @@ $(function() {
             })                
         });
 
+=======
+
+<script>
+$(function() {
+>>>>>>> william
         $('.close-it').on('click', function(e) {
             e.preventDefault();
             $('.darkfilter').toggle(0);
