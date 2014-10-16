@@ -1,17 +1,27 @@
+<? session_start(); ?>
 <!DOCTYPE html>
 <html>
     <head>
+        <?php include_once('../code/backbone.php'); ?>
         <title>Konfirmed</title>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,700,300,600' rel='stylesheet' type='text/css'>
         <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="scripts/noscroll.js"></script>
-        <link rel="stylesheet" href="stylesheets/style.css">
+        <meta class="viewport" name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="scripts/noscroll.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
+        <script src="scripts/login-register.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
+        <script src="https://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+        <link rel="stylesheet" href="stylesheets/style.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
+        
     </head>
     <body>
         <div class="navigation-background"></div>
         <div class="navigation">
             <ul class="inline right">
                 <li><a href="#">About</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="contact.php">Contact Us</a></li>
+                <? if(isLoggedIn()) {
+                echo '<li><a href="logout.php">Logout</a></li>';
+                } ?>
             </ul>
         </div>
         <div class="menu">
@@ -22,25 +32,21 @@
                 --><span class="seperator"></span><!--
                 --><li class="second-row"><div class="photography box"></div></li><!--
                 --><li><div class="writer box"></div></li>
-                <li>            
-                   <div class="login-register">
-                       <button class="login">Login</button>
-                       <button class="register">Register</button>
-                   </div>
-               </li>
+                <? if(!isLoggedIn()) {
+                    echo '<li>';            
+                    echo '<div class="login-register">';
+                    echo '<button class="login">Login</button><!--';
+                    echo '--><button class="register">Register</button>';
+                    echo '</div>';
+                    echo '</li>'.$_SESSION['LoggedInAs'];
+                } ?>
             </ul>
         </div>
-        <div class="footer-background"></div>
-        <div class="footer">
-            <ul class="footer footer-left">
-                <li>Insert copyright information here and contact information here</li>
-              
-            </ul>
-            <ul class="footer footer-right">
-                <li><img src="images/twitter-bird-icon.png" class="icon"></li>
-                <li><img src="images/facebook-icon.png" class="icon"></li>
-            </ul>
-        </div>
+        
+        <div class="darkfilter"></div>
+        <div class="register-box"></div>
+        <div class="login-box"></div>
+        
     </body>
+    
 </html>
-  
