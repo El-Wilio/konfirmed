@@ -13,17 +13,10 @@ html {
 
 body {
 <<<<<<< HEAD
-<<<<<<< HEAD
     min-width: 320px;
 =======
     min-width: 220px;
 >>>>>>> william
-=======
-    min-width: 220px;
-=======
-    min-width: 320px;
->>>>>>> origin/william
->>>>>>> origin/william
     min-height: 380px;
 }
 
@@ -263,15 +256,9 @@ div.footer, .footer-background {
 
 .login-box {
 <<<<<<< HEAD
-<<<<<<< HEAD
     text-align: center;
 =======
 >>>>>>> william
-=======
-=======
-    text-align: center;
->>>>>>> origin/william
->>>>>>> origin/william
     top: 30%;
     left: calc(50% - 240px);
     width: 480px;
@@ -320,14 +307,6 @@ div.footer, .footer-background {
 .login-input {
   margin-top: 10px;
 <<<<<<< HEAD
-<<<<<<< HEAD
-=======
-  margin-left: 30%;
-  width: 40%;
-}
-
-=======
->>>>>>> origin/william
   width: 40%;
 }
 
@@ -335,16 +314,12 @@ span.error {
     font-size: 11px;
 }
 
-<<<<<<< HEAD
 =======
   margin-left: 30%;
   width: 40%;
 }
 
 >>>>>>> william
-=======
->>>>>>> origin/william
->>>>>>> origin/william
 .register-submit {
   padding: 10px;
   display: block;
@@ -362,17 +337,10 @@ span.error {
   width: calc(40% + 20px);
   border: none;
 <<<<<<< HEAD
-<<<<<<< HEAD
   margin-left: calc(30% - 15px);
 =======
   margin-left: calc(30%);
 >>>>>>> william
-=======
-  margin-left: calc(30%);
-=======
-  margin-left: calc(30% - 15px);
->>>>>>> origin/william
->>>>>>> origin/william
   margin-bottom: 10px;
   background-color: #000742;
   color: white;
@@ -487,11 +455,7 @@ span.error {
     margin-bottom: 10px;  
   }    
     
-<<<<<<< HEAD
 >>>>>>> william
-=======
->>>>>>> origin/william
->>>>>>> origin/william
   .registration-form {
     width: calc(100% - 20px);
   }
@@ -633,10 +597,7 @@ span.error {
         left: 0;
     }
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
-=======
->>>>>>> origin/william
 }
 
 @media all and (max-width: 480px) {
@@ -645,12 +606,7 @@ span.error {
         width: 100%;
         left: 0;
     }
-<<<<<<< HEAD
 >>>>>>> william
-=======
-=======
->>>>>>> origin/william
->>>>>>> origin/william
     .register-box {
        height: 75%;
        top: 10%;

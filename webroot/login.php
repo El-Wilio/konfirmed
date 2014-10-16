@@ -6,13 +6,6 @@
     placeholder="Please enter your password.">
 <button class="login-submit">login</button>
 <<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-<script>
-$(function() {
-=======
->>>>>>> origin/william
 <span class="error"></span>
 
 <script>
@@ -40,15 +33,11 @@ $(function() {
             })                
         });
 
-<<<<<<< HEAD
 =======
 
 <script>
 $(function() {
 >>>>>>> william
-=======
->>>>>>> origin/william
->>>>>>> origin/william
         $('.close-it').on('click', function(e) {
             e.preventDefault();
             $('.darkfilter').toggle(0);

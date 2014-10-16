@@ -8,21 +8,12 @@ function connectToDatabase() {
 		return $con;
 	}
 <<<<<<< HEAD
-<<<<<<< HEAD
     
 =======
-=======
->>>>>>> origin/william
 	
 function isLoggedIn() {
 	return $_SESSION['LoggedInAs'] != null;
 }
 
-<<<<<<< HEAD
 >>>>>>> william
-=======
-=======
-    
->>>>>>> origin/william
->>>>>>> origin/william
 ?>
