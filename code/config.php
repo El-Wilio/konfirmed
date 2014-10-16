@@ -7,5 +7,9 @@ function connectToDatabase() {
 		}
 		return $con;
 	}
-    
+	
+function isLoggedIn() {
+	return $_SESSION['LoggedInAs'] != null;
+}
+
 ?>
