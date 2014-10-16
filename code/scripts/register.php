@@ -1,6 +1,7 @@
 <?php 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	$email = $_POST['txtRegisterUsername'];
 	$pass = $_POST['passRegisterPassword'];
 	$confirmPass = $_POST['passRegisterConfirmPassword'];
@@ -22,6 +23,8 @@
 		if($errMessage == "") { $errMessage = "success"; }
 		return $errMessage;
 =======
+=======
+>>>>>>> origin/william
     include_once(dirname( __FILE__ ).'/../config.php');
 
     function validateEmail($email) {
@@ -56,13 +59,17 @@
         
         return $errormessage;
 		
+<<<<<<< HEAD
 >>>>>>> william
+=======
+>>>>>>> origin/william
 	}
 	
 	
 	//Start do not call
 	function checkForAvailableUsername($username) {
 		$con = connectToDatabase();
+<<<<<<< HEAD
 <<<<<<< HEAD
 		$result = mysqli_query($con, "Select username From account");
 		$found = false;
@@ -72,6 +79,8 @@
 					break;
 				}
 =======
+=======
+>>>>>>> origin/william
 		$result = mysqli_query($con, "Select * FROM account WHERE username='$username'");
 		$found = false;
 		while($row = mysqli_fetch_array($result)) {
@@ -79,7 +88,10 @@
 				$found = true;	
                 break;
 			}
+<<<<<<< HEAD
 >>>>>>> william
+=======
+>>>>>>> origin/william
 		}
 		mysqli_close($con);
 		return !$found;
@@ -99,6 +111,7 @@
 	}
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 	function connectToDatabase() {
 		$con = mysqli_connect("konfirmedcom.fatcowmysql.com", "cbarrieau", "K0nfirmed12.", "db_konfirmed");
 		if(mysqli_connect_errno()) {
@@ -108,4 +121,6 @@
 	}
 =======
 >>>>>>> william
+=======
+>>>>>>> origin/william
 ?>

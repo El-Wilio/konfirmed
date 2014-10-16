@@ -10,6 +10,7 @@ foreach($classes as $filename) {
 	}
 }
 
+<<<<<<< HEAD
 
 function connectToDatabase() {
 	$con = mysqli_connect("konfirmedcom.fatcowmysql.com", "cbarrieau", "K0nfirmed12.", "db_konfirmed");
@@ -25,6 +26,9 @@ function connectToDatabase() {
 	return $con;	
 }
 
+=======
+//Temporary code
+>>>>>>> origin/william
 function selectStarFromProfile() {
 	$con = connectToDatabase();
 	$result = mysqli_query($con, "Select * From profile");
@@ -33,8 +37,19 @@ function selectStarFromProfile() {
 		echo "<br />";
 	}
 	mysqli_close($con);	
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/william
 }
+
+//if a user is logged in
+
+function isLoggedIn() {
+    if(isset($_SESSION['LoggedInAs'])) return true;
+    else return false;
+}
+
 //Select
 function selectProfile() {
 	

@@ -8,6 +8,7 @@
 <body>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 <?php
 include("../code/backbone.php");
 $something = New Something();
@@ -16,6 +17,8 @@ $something->talk();
 =======
 =======
 >>>>>>> william
+=======
+>>>>>>> origin/william
 <?php include("../code/backbone.php"); ?>
 <h1>Master Back-End Testing Page</h1>
 <h2>Intro and information</h2>
@@ -86,8 +89,11 @@ $something->talk();
 <h3>Contact Page</h3>
 <h4>Send email with AJAX confirm</h4>
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> origin/chris
 =======
 >>>>>>> william
+=======
+>>>>>>> origin/william
 </body>
 </html>
