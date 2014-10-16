@@ -1,7 +1,5 @@
 <?php 
-
-    include_once(dirname( __FILE__ ).'/../config.php');
-
+	
     function validateEmail($email) {
     
         $regex = '/^\w+@\w+\.\w{2,4}(\.\w{2,4})?$/';
@@ -13,26 +11,24 @@
     
 	function register($email1, $email2, $pass1, $pass2) {
         
-		if($email1 != $email2) { $errormessage = 'email confirmation error' ;}
-        else if(strlen($pass1) < 5) { $errormessage = 'password too short'; }
-		else if($pass1 != $pass2) {   $errormessage = 'password confirmation error';}
-        else if(!validateEmail($email1)) { $errormessage = 'email validation error'; } 
+		if($email1 != $email2) { $_POST['error'] = 'email confirmation error' ;}
+        if(strlen($pass1) < 5) {$_POST['error'] = 'password too short'; }
+		if($pass1 != $pass2) {   $_POST['error'] = 'password confirmation error';}
+        if(!validateEmail($email1)) { $_POST['error'] = 'email validation error'; } 
 		
-		else if(!checkForAvailableUsername($email1)) {
-            $errormessage = 'this email was already taken';
+		if(!checkForAvailableUsername($email1)) {
+            $_POST['error'] = 'this email was already taken';
 		}
         
-        else { 
+        if(!isset($_POST['error'])) { 
         
         	$salt = makeSalt();
 			$encryptedPassword = crypt($pass1, $salt);
 			makeAccount($email1, $encryptedPassword, $salt);
         
-            $errormessage = 'noerror'; 
+            $_POST['error']= 'noerror'; 
         
         }
-        
-        return $errormessage;
 		
 	}
 	
@@ -42,10 +38,10 @@
 		$con = connectToDatabase();
 		$result = mysqli_query($con, "Select * FROM account WHERE username='$username'");
 		$found = false;
-		while($row = mysqli_fetch_array($result)) {
+		while($row = mysqli_fetch_array($result) && !$found) {
+            echo $row['username'];
 			if($username == $row['username']) {
 				$found = true;	
-                break;
 			}
 		}
 		mysqli_close($con);
@@ -65,4 +61,11 @@
 		mysqli_close($con);
 	}
 	
+	function connectToDatabase() {
+		$con = mysqli_connect("konfirmedcom.fatcowmysql.com", "cbarrieau", "K0nfirmed12.", "db_konfirmed");
+		if(mysqli_connect_errno()) {
+			echo "Failed to connect to MySQL: " . mysqli_connect_error();	
+		}
+		return $con;
+	}
 ?>

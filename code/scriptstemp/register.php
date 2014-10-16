@@ -1,7 +1,5 @@
 <?php 
-
-    include_once(dirname( __FILE__ ).'/../config.php');
-
+	
     function validateEmail($email) {
     
         $regex = '/^\w+@\w+\.\w{2,4}(\.\w{2,4})?$/';
@@ -65,4 +63,11 @@
 		mysqli_close($con);
 	}
 	
+	function connectToDatabase() {
+		$con = mysqli_connect("konfirmedcom.fatcowmysql.com", "cbarrieau", "K0nfirmed12.", "db_konfirmed");
+		if(mysqli_connect_errno()) {
+			echo "Failed to connect to MySQL: " . mysqli_connect_error();	
+		}
+		return $con;
+	}
 ?>
