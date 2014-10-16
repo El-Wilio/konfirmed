@@ -1,7 +1,11 @@
 <?php 
 
 require_once('../code/scripts/register.php');
+<<<<<<< HEAD
 //require_once('../code/scripts/login.php');
+=======
+require_once('../code/scripts/login.php');
+>>>>>>> origin/william
 
 if($_POST['type'] == 'sendRegistrationInfo') {
 
@@ -17,7 +21,11 @@ if($_POST['type'] == 'checkEmailAvailability') {
 
 if($_POST['type'] == 'login') {
     
+<<<<<<< HEAD
    if(login($username, $password)) {
+=======
+   if(login($_POST['email'], $_POST['password'])) {
+>>>>>>> origin/william
         echo "success";
     }
     else {

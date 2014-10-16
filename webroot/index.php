@@ -1,6 +1,8 @@
+<? session_start(); ?>
 <!DOCTYPE html>
 <html>
     <head>
+        <?php include_once('../code/backbone.php'); ?>
         <title>Konfirmed</title>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,700,300,600' rel='stylesheet' type='text/css'>
         <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -16,7 +18,10 @@
         <div class="navigation">
             <ul class="inline right">
                 <li><a href="#">About</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="contact.php">Contact Us</a></li>
+                <? if(isLoggedIn()) {
+                echo '<li><a href="logout.php">Logout</a></li>';
+                } ?>
             </ul>
         </div>
         <div class="menu">
@@ -27,12 +32,14 @@
                 --><span class="seperator"></span><!--
                 --><li class="second-row"><div class="photography box"></div></li><!--
                 --><li><div class="writer box"></div></li>
-                <li>            
-                   <div class="login-register">
-                       <button class="login">Login</button><!--
-                       --><button class="register">Register</button>
-                   </div>
-               </li>
+                <? if(!isLoggedIn()) {
+                    echo '<li>';            
+                    echo '<div class="login-register">';
+                    echo '<button class="login">Login</button><!--';
+                    echo '--><button class="register">Register</button>';
+                    echo '</div>';
+                    echo '</li>'.$_SESSION['LoggedInAs'];
+                } ?>
             </ul>
         </div>
         

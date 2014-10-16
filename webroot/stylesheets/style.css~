@@ -1,23 +1,16 @@
 html, body {
     margin: 0;
     padding-left: 0;
+    overflow: hidden;
     height: 100%;
     width: 100%;
     background: url('../images/pattern.png');
     background-color: white;
 }
 
-html {
-    overflow-x: hidden;
-}
-
 body {
-<<<<<<< HEAD
     min-width: 220px;
-=======
-    min-width: 320px;
->>>>>>> origin/william
-    min-height: 380px;
+    min-height: 400px;
 }
 
 p, li , a, input, h1, h2, h3, h4, h5, h6, span{
@@ -110,11 +103,11 @@ ul.title li {
 }
 
 .menu-items{
-    background-color: green;
     position: relative;
-    margin-left: calc(50% - 450px);
     display: block;
     padding: 0;
+    width: calc(100%);
+    left: calc(50% - 450px);
     top: 15%;
 }
 
@@ -251,17 +244,15 @@ div.footer, .footer-background {
 .register-box {
     left: calc(50% - 512px);
     width: 1024px;
-    top: 10%;
+    top: 20%;
+    height: 60%;
 }
 
 .login-box {
-<<<<<<< HEAD
-=======
-    text-align: center;
->>>>>>> origin/william
     top: 30%;
-    left: calc(50% - 240px);
-    width: 480px;
+    left: calc(50% - 320px);
+    width: 640px;
+    height: 40%;
 }
 
 .registration-info {
@@ -306,20 +297,10 @@ div.footer, .footer-background {
 
 .login-input {
   margin-top: 10px;
-<<<<<<< HEAD
   margin-left: 30%;
   width: 40%;
 }
 
-=======
-  width: 40%;
-}
-
-span.error {
-    font-size: 11px;
-}
-
->>>>>>> origin/william
 .register-submit {
   padding: 10px;
   display: block;
@@ -334,14 +315,9 @@ span.error {
 .login-submit {
   padding: 10px;
   display: block;
-  width: calc(40% + 20px);
+  width: calc(40% + 10px);
   border: none;
-<<<<<<< HEAD
   margin-left: calc(30%);
-=======
-  margin-left: calc(30% - 15px);
->>>>>>> origin/william
-  margin-bottom: 10px;
   background-color: #000742;
   color: white;
   font-weight: bold;
@@ -398,14 +374,6 @@ span.error {
 
 }
 
-@media all and (max-height: 460px) {
-
-  .login-box {
-    top: 15%;
-  }
-  
-}
-
 @media all and (max-width: 1024px) {
 
     .menu-items li:not(:last-child) {
@@ -417,7 +385,7 @@ span.error {
     }
     
     .menu-items {
-       margin-left: calc(50% - 300px);
+        left: calc(50% - 300px);
     }
 
 
@@ -427,37 +395,21 @@ span.error {
     width: 640px;    
     left: calc(50% - 320px);
   }   
-<<<<<<< HEAD
     
   .registration-info {
-    width: calc(100% - 110px);
-  }
-
-  .register-input {
-    margin: 20px 0;  
-  }
-  
-  .register-submit {
-    margin-bottom: 10px;  
-  }    
-    
-=======
-    
-  .registration-info {
-    width: calc(100% - 110px);
-  }
-
-  .register-input {
-    margin: 20px 0;  
-  }
-  
-  .register-submit {
-    margin-bottom: 10px;  
-  }    
-    
->>>>>>> origin/william
-  .registration-form {
     width: calc(100% - 20px);
+  }
+
+  .register-input {
+    margin: 20px 0;  
+  }
+  
+  .register-submit {
+    margin-bottom: 10px;  
+  }    
+    
+  .registration-form {
+    width: calc(100% - 22px);
   }
 
 }
@@ -497,7 +449,7 @@ span.error {
     }
 
     .menu-items {
-        margin-left: calc(50% - 155px);
+        left: calc(50% - 155px);
         top: 0;
     }
     
@@ -518,7 +470,7 @@ span.error {
     }
     
     .menu-items {
-        margin-left: calc(50% - 150px);
+        left: calc(50% - 150px);
         bottom: 0;
     }
     
@@ -543,14 +495,14 @@ span.error {
     }   
 
     .menu-items {
-        margin-left: calc(50% - 145px);
+        left: calc(50% - 145px);
     }
 }
 
 @media all and (max-height: 610px) and (max-width: 355px){
 
     .menu-items {
-        margin-left: calc(50% - 140px);
+        left: calc(50% - 140px);
     }
 }
 
@@ -579,45 +531,13 @@ span.error {
     }   
     
     .menu-items {
-        margin-left: calc(50% - 115px);
+        left: calc(50% - 115px);
     }
 }
 
 @media all and (max-height: 525px) and (max-width: 355px){
 
     .menu-items {
-        margin-left: calc(50% - 110px);
+        left: calc(50% - 110px);
     }
-}
-
-@media all and (max-width: 480px) {
-
-    .login-box {
-        width: 100%;
-        left: 0;
-    }
-<<<<<<< HEAD
-}
-
-@media all and (max-width: 480px) {
-
-    .login-box {
-        width: 100%;
-        left: 0;
-    }
-=======
->>>>>>> origin/william
-    .register-box {
-       height: 75%;
-       top: 10%;
-    }   
-}
-
-@media all and (max-height: 800px) and (max-width: 1024px){
-
-  .register-box {
-    height: 100%;
-    top: 0;
-  }
-
 }

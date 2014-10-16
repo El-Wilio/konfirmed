@@ -20,6 +20,14 @@ function selectStarFromProfile() {
 	}
 	mysqli_close($con);	
 }
+
+//if a user is logged in
+
+function isLoggedIn() {
+    if(isset($_SESSION['LoggedInAs'])) return true;
+    else return false;
+}
+
 //Select
 function selectProfile() {
 	

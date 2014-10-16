@@ -7,9 +7,13 @@ function connectToDatabase() {
 		}
 		return $con;
 	}
+<<<<<<< HEAD
 	
 function isLoggedIn() {
 	return $_SESSION['LoggedInAs'] != null;
 }
 
+=======
+    
+>>>>>>> origin/william
 ?>
