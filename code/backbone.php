@@ -21,8 +21,7 @@ function connectToDatabase() {
 	//	echo "<br />";
 	//}
 	//mysqli_close($con);
-	return $con;	
-}
+	return $con;
 
 //Temporary code
 function selectStarFromProfile() {
