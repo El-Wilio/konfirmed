@@ -12,11 +12,7 @@ html {
 }
 
 body {
-<<<<<<< HEAD
-    min-width: 220px;
-=======
     min-width: 320px;
->>>>>>> origin/william
     min-height: 380px;
 }
 
@@ -38,6 +34,14 @@ a.close-it {
     display: inline-block;
     position: absolute;
     top: 5px;
+    right: 5px;
+}
+
+a.close-selected-category {
+    color: white;
+    display: inline-block;
+    position: absolute;
+    top: 10px;
     right: 5px;
 }
 
@@ -110,7 +114,6 @@ ul.title li {
 }
 
 .menu-items{
-    background-color: green;
     position: relative;
     margin-left: calc(50% - 450px);
     display: block;
@@ -255,10 +258,7 @@ div.footer, .footer-background {
 }
 
 .login-box {
-<<<<<<< HEAD
-=======
     text-align: center;
->>>>>>> origin/william
     top: 30%;
     left: calc(50% - 240px);
     width: 480px;
@@ -306,12 +306,6 @@ div.footer, .footer-background {
 
 .login-input {
   margin-top: 10px;
-<<<<<<< HEAD
-  margin-left: 30%;
-  width: 40%;
-}
-
-=======
   width: 40%;
 }
 
@@ -319,7 +313,6 @@ span.error {
     font-size: 11px;
 }
 
->>>>>>> origin/william
 .register-submit {
   padding: 10px;
   display: block;
@@ -336,11 +329,7 @@ span.error {
   display: block;
   width: calc(40% + 20px);
   border: none;
-<<<<<<< HEAD
-  margin-left: calc(30%);
-=======
   margin-left: calc(30% - 15px);
->>>>>>> origin/william
   margin-bottom: 10px;
   background-color: #000742;
   color: white;
@@ -381,6 +370,16 @@ span.error {
 
 .login:hover, .register:hover {
   background-color: #000E8F;
+}
+
+.selected-category {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: #FF1C00;
 }
 
 @-ms-viewport{
@@ -427,7 +426,6 @@ span.error {
     width: 640px;    
     left: calc(50% - 320px);
   }   
-<<<<<<< HEAD
     
   .registration-info {
     width: calc(100% - 110px);
@@ -441,21 +439,6 @@ span.error {
     margin-bottom: 10px;  
   }    
     
-=======
-    
-  .registration-info {
-    width: calc(100% - 110px);
-  }
-
-  .register-input {
-    margin: 20px 0;  
-  }
-  
-  .register-submit {
-    margin-bottom: 10px;  
-  }    
-    
->>>>>>> origin/william
   .registration-form {
     width: calc(100% - 20px);
   }
@@ -596,17 +579,6 @@ span.error {
         width: 100%;
         left: 0;
     }
-<<<<<<< HEAD
-}
-
-@media all and (max-width: 480px) {
-
-    .login-box {
-        width: 100%;
-        left: 0;
-    }
-=======
->>>>>>> origin/william
     .register-box {
        height: 75%;
        top: 10%;

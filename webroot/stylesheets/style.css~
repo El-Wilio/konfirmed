@@ -1,16 +1,19 @@
 html, body {
     margin: 0;
     padding-left: 0;
-    overflow: hidden;
     height: 100%;
     width: 100%;
     background: url('../images/pattern.png');
     background-color: white;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 body {
-    min-width: 220px;
-    min-height: 400px;
+    min-width: 320px;
+    min-height: 380px;
 }
 
 p, li , a, input, h1, h2, h3, h4, h5, h6, span{
@@ -31,6 +34,13 @@ a.close-it {
     display: inline-block;
     position: absolute;
     top: 5px;
+    right: 5px;
+}
+
+a.close-selected-category {
+    color: white;
+    position: absolute;
+    top: 10px;
     right: 5px;
 }
 
@@ -104,10 +114,9 @@ ul.title li {
 
 .menu-items{
     position: relative;
+    margin-left: calc(50% - 450px);
     display: block;
     padding: 0;
-    width: calc(100%);
-    left: calc(50% - 450px);
     top: 15%;
 }
 
@@ -244,15 +253,14 @@ div.footer, .footer-background {
 .register-box {
     left: calc(50% - 512px);
     width: 1024px;
-    top: 20%;
-    height: 60%;
+    top: 10%;
 }
 
 .login-box {
+    text-align: center;
     top: 30%;
-    left: calc(50% - 320px);
-    width: 640px;
-    height: 40%;
+    left: calc(50% - 240px);
+    width: 480px;
 }
 
 .registration-info {
@@ -297,8 +305,11 @@ div.footer, .footer-background {
 
 .login-input {
   margin-top: 10px;
-  margin-left: 30%;
   width: 40%;
+}
+
+span.error {
+    font-size: 11px;
 }
 
 .register-submit {
@@ -315,9 +326,10 @@ div.footer, .footer-background {
 .login-submit {
   padding: 10px;
   display: block;
-  width: calc(40% + 10px);
+  width: calc(40% + 20px);
   border: none;
-  margin-left: calc(30%);
+  margin-left: calc(30% - 15px);
+  margin-bottom: 10px;
   background-color: #000742;
   color: white;
   font-weight: bold;
@@ -359,6 +371,16 @@ div.footer, .footer-background {
   background-color: #000E8F;
 }
 
+.selected-category {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: #FF1C00;
+}
+
 @-ms-viewport{
   width: device-width;
 }
@@ -374,6 +396,14 @@ div.footer, .footer-background {
 
 }
 
+@media all and (max-height: 460px) {
+
+  .login-box {
+    top: 15%;
+  }
+  
+}
+
 @media all and (max-width: 1024px) {
 
     .menu-items li:not(:last-child) {
@@ -385,7 +415,7 @@ div.footer, .footer-background {
     }
     
     .menu-items {
-        left: calc(50% - 300px);
+       margin-left: calc(50% - 300px);
     }
 
 
@@ -397,7 +427,7 @@ div.footer, .footer-background {
   }   
     
   .registration-info {
-    width: calc(100% - 20px);
+    width: calc(100% - 110px);
   }
 
   .register-input {
@@ -409,7 +439,7 @@ div.footer, .footer-background {
   }    
     
   .registration-form {
-    width: calc(100% - 22px);
+    width: calc(100% - 20px);
   }
 
 }
@@ -449,7 +479,7 @@ div.footer, .footer-background {
     }
 
     .menu-items {
-        left: calc(50% - 155px);
+        margin-left: calc(50% - 155px);
         top: 0;
     }
     
@@ -470,7 +500,7 @@ div.footer, .footer-background {
     }
     
     .menu-items {
-        left: calc(50% - 150px);
+        margin-left: calc(50% - 150px);
         bottom: 0;
     }
     
@@ -495,14 +525,14 @@ div.footer, .footer-background {
     }   
 
     .menu-items {
-        left: calc(50% - 145px);
+        margin-left: calc(50% - 145px);
     }
 }
 
 @media all and (max-height: 610px) and (max-width: 355px){
 
     .menu-items {
-        left: calc(50% - 140px);
+        margin-left: calc(50% - 140px);
     }
 }
 
@@ -531,13 +561,34 @@ div.footer, .footer-background {
     }   
     
     .menu-items {
-        left: calc(50% - 115px);
+        margin-left: calc(50% - 115px);
     }
 }
 
 @media all and (max-height: 525px) and (max-width: 355px){
 
     .menu-items {
-        left: calc(50% - 110px);
+        margin-left: calc(50% - 110px);
     }
+}
+
+@media all and (max-width: 480px) {
+
+    .login-box {
+        width: 100%;
+        left: 0;
+    }
+    .register-box {
+       height: 75%;
+       top: 10%;
+    }   
+}
+
+@media all and (max-height: 800px) and (max-width: 1024px){
+
+  .register-box {
+    height: 100%;
+    top: 0;
+  }
+
 }

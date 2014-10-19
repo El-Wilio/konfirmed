@@ -1,8 +1,7 @@
-<? session_start(); ?>
+<?php include_once('../code/backbone.php'); ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <?php include_once('../code/backbone.php'); ?>
         <title>Konfirmed</title>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,700,300,600' rel='stylesheet' type='text/css'>
         <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -46,6 +45,9 @@
         <div class="darkfilter"></div>
         <div class="register-box"></div>
         <div class="login-box"></div>
+        <div class="selected-category">
+          <a class="close-selected-category">Close</a>
+        </div>
         
     </body>
     
