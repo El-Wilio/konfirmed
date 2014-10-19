@@ -1,0 +1,83 @@
+html, body {
+    margin: 0;
+    padding-left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+body {
+    min-width: 320px;
+    min-height: 380px;
+}
+
+p, li , a, input, h1, h2, h3, h4, h5, h6, span {
+    color: #313131;
+    font-family: 'Open Sans', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    transition: color 0.5s;
+}
+
+.search-box {
+  display: inline-block;
+  margin-left: 10px;
+  border: 1px solid black;
+  padding: 5px;
+}
+
+ul.navigation {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+ul.navigation > li {
+  padding-left: 10px;
+  width: calc(100% - 10px);
+  border-bottom: 1px solid black;
+}
+
+.content {
+  width: 60%;
+  height: 100%;
+}
+
+.left-sidebar, .right-sidebar {
+  width: 20%;
+  height: 100%;
+  background-color: green;
+}
+
+.left-sidebar, .right-sidebar, .content {
+  float: left;
+}
+
+.left-sidebar::after, .right-sidebar::after, .content::after {
+  clear: both;
+}
+
+div.profile-picture {
+  margin-top: 20px;
+  text-align: center;
+  width: 100%;
+  background-color: blue;
+}
+
+div.profile-info {
+  margin-left: 10px;
+}
+
+p.profile-info {
+  font-size: 12px;
+}
+
+img.profile-picture {
+  width: 150px;
+  height: 150px;
+}
