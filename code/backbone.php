@@ -40,8 +40,19 @@ function isProfileEmpty() {
 }
 
 //Select
-function selectProfile() {
-	
+function selectProfile($accountID) {
+	$con = connectToDatabase();
+	$result = mysqli_query($con, "Select * from profile where id_account = '" . $accountID . "'");
+	$profile = array();
+	return mysqli_fetch_array($result, MYSQLI_NUM);
+}
+
+function selectCurrentProfile() {
+	$con = connectToDatabase();
+	$result = mysqli_query($con, "Select id from account where username = '" . $_SESSION['LoggedInAs'] . "'");
+	$row = mysqli_fetch_array($result);
+	$accountID = $row['id'];
+	return selectProfile($accountID);
 }
 
 function selectSubmission() {

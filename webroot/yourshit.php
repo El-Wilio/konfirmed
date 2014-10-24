@@ -1,7 +1,5 @@
 <?php
-
-include_once('../code/scripts/editProfile.php');
-
-print_r(updateProfile("", "", "", "", "", "", "", "", ""));
+include_once('../code/backbone.php');
+print_r(selectProfile(3));
 
 ?>
