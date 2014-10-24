@@ -1,16 +1,14 @@
-<a href="#" class="close-it">close</a>
+<h1 class="registration-title">Login</h1>
+<a href="#"><img src="images/x-icon.png" class="close-it" width="20px" height="auto"></a>
 <input type="email" name="email" class="login-input email-input" 
     placeholder="Please type in your email.">
 <span class="email_taken" style="font-size: 12px; display: block; position: relative; bottom: 10px;"></span>
 <input type="password" name="password" class="login-input password-input" 
     placeholder="Please enter your password.">
 <button class="login-submit">login</button>
-<<<<<<< HEAD
 <span class="error"></span>
-
 <script>
 $(function() {
-
         $('.login-submit').on('click', function() {
             $.ajax({ 
                 url: 'ajaxRequest.php',
@@ -33,11 +31,6 @@ $(function() {
             })                
         });
 
-=======
-
-<script>
-$(function() {
->>>>>>> william
         $('.close-it').on('click', function(e) {
             e.preventDefault();
             $('.darkfilter').toggle(0);

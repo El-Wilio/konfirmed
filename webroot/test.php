@@ -1,3 +1,4 @@
+<?php include("../code/backbone.php"); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -6,17 +7,10 @@
 </head>
 
 <body>
-<<<<<<< HEAD
-<<<<<<< HEAD
 <?php
-include("../code/backbone.php");
 $something = New Something();
 $something->talk();
 ?>
-=======
-=======
->>>>>>> william
-<?php include("../code/backbone.php"); ?>
 <h1>Master Back-End Testing Page</h1>
 <h2>Intro and information</h2>
 <p>This is a one-page-fits-all testing ground for the Konfirmed.com website. All the possible inputs and outputs for the site are on this page and may be tested here. Then, for integration, the function call instructions can easily be given to the front-end developer.</p>
@@ -85,9 +79,5 @@ $something->talk();
     	</div>
 <h3>Contact Page</h3>
 <h4>Send email with AJAX confirm</h4>
-<<<<<<< HEAD
->>>>>>> origin/chris
-=======
->>>>>>> william
 </body>
 </html>
