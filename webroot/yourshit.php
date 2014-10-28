@@ -1,5 +1,5 @@
 <?php
 include_once('../code/backbone.php');
-print_r(selectProfile(3));
+print_r(selectCurrentProfile());
 
 ?>

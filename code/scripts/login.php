@@ -18,7 +18,7 @@
 		
 		if($found) {
 			session_start();
-			$_SESSION['LoggedInAs'] = $username;	
+			$_SESSION['LoggedInAs'] = $username;
 		}
 		
         mysqli_close($con);
@@ -26,7 +26,9 @@
 	}
 	
 	function logout() {
+		session_start();
 		unset($_SESSION['LoggedInAs']);
+		session_destroy();
 	}
 
 ?>
