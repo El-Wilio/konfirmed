@@ -1,5 +1,6 @@
 <?php 
 include_once('../code/backbone.php');
+selectPopularSubmissions(1);
 ?>
 <!DOCTYPE html>
 <html>

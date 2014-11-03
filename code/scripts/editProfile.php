@@ -39,13 +39,16 @@ function updateProfile($showEmail, $fName, $lName, $displayPic,
 									$occupation . "')";
 	$result = mysqli_query($con, $command); 
 	}
-	mysqli_close($con);
-	if(mysqli_affected_rows() == -1) {
-		return false;
-	} else if(mysqli_affected_rows() == 1) {
-		return true;
+	$retval = -1;
+	if(mysqli_affected_rows($con) == -1) {
+		$retval = false;
+	} else if(mysqli_affected_rows($con) == 1) {
+		$retval = true;
 	} else { 
-		return -1;
+		$retval = -1;
 	}
+	
+	mysqli_close($con);
+	return $retval;
 }
 ?>

@@ -70,7 +70,6 @@ function selectCurrentProfile() {
 	$submission['genres'] (another array, index based, no keys)
 	$submission['tags'] (another array, index based, no keys)
 	$submission['rating'] (returns a decimal from 0 to 5)
-	
 */
 function selectAccountSubmissions($accountID) {
 	$con = connectToDatabase();
@@ -161,74 +160,28 @@ function interpretDate($theDate) {
 	return $months[$month] . " " . $date . " " . $year;
 }
 
-function selectProfilesByMedium($idMedium) {
-	$con = connectToDatabase();
-	//First get all the account IDs that have this mediumID
-	$result = mysqli_query($con, "Select id_account from account_medium where id_medium = " . $idMedium);
-	$accounts = array();
-	while($row = mysqli_fetch_array($result)) {
-		array_push($accounts, $row['id_account']);
-	}
-	$profiles = array();
-	foreach($accounts as $idAccount) {
-		$profile = selectProfile($idAccount);
-		array_push($profiles, $profile);
-	}
-	mysqli_close($con);
-	return $profiles;
-}
-
-function selectAccountMediums($accountID) {
-	$con = connectToDatabase();
-	$result = mysqli_query($con, "Select id_medium from account_medium where id_account = " . $accountID);
-	$mediums = array();
-	while($row = mysqli_fetch_array($result)) {
-		$mediumResult = mysqli_query($con, "Select name from medium where id = " . $row['id_medium']);
-		array_push($mediums, $mediumResult['name']);
-	}
-	mysqli_close($con);
-	return $mediums;
-}
-
-function insertAccountMedium($accountID, $mediumID) {
-	$con = connectToDatabase();
-	mysqli_query($con, "Insert into account_medium (id_medium, id_account)
-		VALUES('" . $mediumID . "', '" . $accountID . "')");
-	mysqli_close($con);
-	if(mysqli_affected_rows() == -1) {
-		return false;
-	} else if(mysqli_affected_rows() == 1) {
-		return true;
-	} else { 
-		return -1;
-	}
-}
-
-function deleteAccountMedium($accountID, $mediumID) {
-	$con = connectToDatabase();
-	mysqli_query($con, "Delete from account_medium where id_account = " . $accountID . " and id_medium = " . $mediumID);
-	mysqli_close($con);
-	if(mysqli_affected_rows() == -1) {
-		return false;
-	} else if(mysqli_affected_rows() == 1) {
-		return true;
-	} else { 
-		return -1;
-	}
-}
-
 function insertRating($submissionID, $accountID, $rating) {
 	$con = connectToDatabase();
-	mysqli_query($con, "Insert into rating (id_submission, id_account, rating)
-				VALUES ('" . $submissionID . "', '" . $accountID . "', '" . $rating . "')");
-	mysqli_close($con);
-	if(mysqli_affected_rows() == -1) {
-		return false;
-	} else if(mysqli_affected_rows() == 1) {
-		return true;
+	
+	$result = mysqli_query($con, "Select * from rating where id_account = 99 and id_submission = " . $submissionID);
+	
+	if($row = mysqli_fetch_array($result)) {
+		$retval = false;
 	} else { 
-		return -1;
+		mysqli_query($con, "Insert into rating (id_submission, id_account, rating)
+					VALUES ('" . $submissionID . "', '" . $accountID . "', '" . $rating . "')");
+		$retval = -1;
+		if(mysqli_affected_rows($con) == -1) {
+			$retval = false;
+		} else if(mysqli_affected_rows($con) == 1) {
+			$retval = true;
+		} else { 
+			$retval = -1;
+		}
 	}
+	mysqli_close($con);
+	return $retval;
+	
 }
 
 /*
@@ -244,6 +197,8 @@ Required format for the $submissionData array:
 function insertSubmission($submissionData) {
 	$con = connectToDatabase();
 	$today = date("Y-m-d");
+	echo "submissionData: <br />";
+	print_r($submissionData);
 	mysqli_query($con, "Insert into submission (id_account, id_medium, title, date_submitted, filename, extension)
 			VALUES ('" . $submissionData['id_account'] . "', '" .
 						$submissionData['id_medium'] . "', '" .
@@ -251,43 +206,273 @@ function insertSubmission($submissionData) {
 						$today . "', '" .
 						$submissionData['filename'] . "', '" .
 						$submissionData['extension'] . "')");
+						
+						
+	$submissionID = $con->insert_id;
+	foreach($submissionData['genres'] as $genre) {
+		mysqli_query($con, "Insert into  submission_genre (id_submission, id_genre)
+							VALUES ('" . $submissionID . "', '" . $genre . "')");
+	}
 	
+	echo "<h2>Tags: </h2>";
+	print_r($submissionData['tags']);
+	
+	foreach($submissionData['tags'] as $tag) {
+		$tag = transformTagIntoTagID($tag);
+		mysqli_query($con, "Insert into submission_tag (id_submission, id_tag)
+							VALUES ('" . $submissionID . "', '" . $tag . "')");	
+	}
+	mysqli_close($con);
+}
+
+//$add is boolean, true by default
+// true => if the tag doesn't exist, add it
+// false => just get the id, return -1  if it doesn't exist
+function transformTagIntoTagID($tag, $add = true) {
+	$tag = strtolower($tag);
+	$con = connectToDatabase();
+	$result = mysqli_query($con, "Select id from tag where name = '" . $tag . "'");
+	$row = mysqli_fetch_array($result);
+	if(isset($row['id'])) { 
+		mysqli_close($con);
+		return $row['id']; 
+	} else {
+		if($add) {
+			mysqli_query($con, "Insert into tag (name)
+								VALUES ('" . $tag . "')");
+			$id = $con->insert_id;
+		} else {
+			$id = -1;
+		}
+		mysqli_close($con);
+		return $id;
+	}
+}
+
+
+//This function checks to see if there is already a submission with the same name. If so, it appends a number
+//At the end to prevent having doubles. 
+function fixFilename($filename, $extension, $mediumID) {
+	$con = connectToDatabase();
+	$result = mysqli_query($con, "Select filename, extension from submission where id_medium = " . $mediumID);
+	$fullFilename = array();
+	while($row = mysqli_fetch_array($result)) {
+		array_push($fullFilename, ($row['filename'] . "." . $row['extension']));
+	}
+	
+	$append = 1;
+	while(in_array((strtolower($filename . $append . "." . $extension)), $fullFilename)) {
+		$append++;
+	}
+	$filename .= $append;// . "." . $extension;
+	mysqli_close($con);
+	return $filename;
 }
 
 function deleteSubmission($submissionID) {
-	
+  $message = '';
+	$con = connectToDatabase();
+	mysqli_query($con, "Delete from submission where id = " . $submissionID);
+	if(mysqli_affected_rows($con) == 1) $message = 'success';
+	else $message = 'error';
+	mysqli_query($con, "Delete from submission_genre where id_submission = " . $submissionID);
+	mysqli_query($con, "Delete from submission_tag where id_submission = " . $submissionID);
+	mysqli_query($con, "Delete from rating where id_submission = " . $submissionID);
+	mysqli_close($con);
+	return $message;
 }
 
-function insertSubmissionGenre($submissionID, $genreID) {
-	
-}
-
-function deleteSubmissionGenre($submissionID, $genreID) {
-	
-}
-
-function insertSubmissionTag($submissionID, $tag) {
-	
-}
-
-function deleteSubmissionTag($submissionID, $tag) {
-	
-}
-
-function insertTag($tag) {
-	
-}
-
+/*The following are accessible from the return value of this function, let it be $submission: 
+	$submission['id']
+	$submission['id_account']
+	$submission['id_medium']
+	$submission['title']
+	$submission['date_submitted']
+	$submission['filename']
+	$submission['extension']
+	$submission['medium']
+	$submission['genres'] (another array, index based, no keys)
+	$submission['tags'] (another array, index based, no keys)
+	$submission['rating'] (returns a decimal from 0 to 5)*/
 function selectSubmission($submissionID) {
-	
+	$con = connectToDatabase();
+	//1. Get all submissions 
+	$result = mysqli_query($con, "Select * from submission where id = " . $submissionID);
+	//2. Put each one into the array that is to be returned to the front end
+	$submission = mysqli_fetch_array($result);
+	//Also get the aggregate data: 
+	//	medium, genres, tags, and rating
+	$mediumText = selectMedium($submission['id_medium']);
+	$submission['medium'] = $mediumText;
+	$genres = selectGenres($submission['id']);
+	$submission['genres'] = $genres;
+	$tags = selectTags($submission['id']);
+	$submission['tags'] = $tags;
+	$rating = getRating($submission['id']);
+	$submission['rating'] = $rating;
+	mysqli_close($con);
+	return $submission;
 }
+
+function selectGroupSubmission($accountID, $start, $repetition) {
+  $con = connectToDatabase();
+	//1. Get all submissions 
+	$result = mysqli_query($con, "Select * from submission where id > " . $start . " AND id_account = " . $accountID . " LIMIT ". $repetition);
+	$submissions = array();
+	while($submission = mysqli_fetch_array($result)) {
+		$mediumText = selectMedium($submission['id_medium']);
+		$submission['medium'] = $mediumText;
+		$genres = selectGenres($submission['id']);
+		$submission['genres'] = $genres;
+		$tags = selectTags($submission['id']);
+		$submission['tags'] = $tags;
+		$rating = getRating($submission['id']);
+		$submission['rating'] = $rating;
+		array_push($submissions, $submission);
+	}
+	mysqli_close($con);
+	return $submissions;
+}
+
+function selectLoggedInAccountID() {
+	$username = $_SESSION['LoggedInAs'];
+	$con = connectToDatabase();
+	$result = mysqli_query($con, "Select id from account where username = '" . $username . "'");
+	$row = mysqli_fetch_array($result);
+	return $row['id'];	
+} 
 
 function search($tags) {
+	$tags = explode(" ", $tags);
+	//Transform the tags into tagIDs
+	$con = connectToDatabase(); 
+	$tagIDs = array();
+	foreach($tags as $tag) {
+		array_push($tagIDs, transformTagIntoTagID($tag, false));
+	}
+	//Get all the submission_ids from submission_tag that have a matching tagID 
+	$submissionIDs = array();
+	$query = "Select distinct(id_submission) from submission_tag where id_tag in (";
+	foreach($tagIDs as $tagID) {
+		$query .= $tagID;
+		if($tagIDs[count($tagIDs)-1] != $tagID) {
+			$query .= ", ";
+		}
+	}
+	$query .= ")";
+	$result = mysqli_query($con, $query);
+	
+	while($row = mysqli_fetch_array($result)) {
+		array_push($submissionIDs, $row['id_submission']);
+	}
+	//For each submission id, count the number of rows that have a matching tag
+	$searchResultIDs = array();
+	foreach($submissionIDs as $submissionID) {
+		$query = "Select count(id) as count " .
+					"from submission_tag " .
+					"where id_submission = " . $submissionID .
+					" and id_tag in (";
+		foreach($tagIDs as $tagID) {
+			$query .= $tagID;
+			if($tagIDs[count($tagIDs)-1] != $tagID) {
+				$query .= ", ";
+			}
+		}
+		$query .= ")";
+		
+		$result = mysqli_query($con, $query);
+		$row = mysqli_fetch_array($result);
+		//If they have as many matching rows as count($tags), add it to the search results
+		if($row['count'] == count($tagIDs)) {
+			array_push($searchResultIDs, $submissionID);
+		}
+	}
+	//For each search result, select the submission by submission ID and add it to an array
+	$submissions = array();
+	foreach($searchResultIDs as $submissionID) {
+		 $submission = selectSubmission($submissionID);
+		 array_push($submissions, $submission);
+	}
+	//return the array
+	return $submissions;
+}
+
+function selectPopularSubmissions($idMedium) {
+	$con = connectToDatabase();
+	//Get all the submissions with this medium. 
+	$result = mysqli_query($con, "Select distinct(id) from submission where id_medium = " . $idMedium);
+	$idSubmissions = array();
+	while($row = mysqli_fetch_array($result)) {
+		array_push($idSubmissions, $row['id']);
+	}
+	//Get all the submissions from the previous list that are also in rating
+	$query = "Select distinct(id) as id from rating where id_submission in(";
+	foreach($idSubmissions as $idSubmission) {
+		$query .= $idSubmission;
+		if($idSubmissions[count($idSubmissions)-1] != $idSubmission) {
+			$query .= ", ";
+		}
+	}
+	$query .= ")";
+	$result = mysqli_query($con, $query);
+	$idSubmissions = array();
+	while($row = mysqli_fetch_array($result)) {
+		array_push($idSubmissions, $row['id']);
+	}
+	//For each submission in that list, count how many ratings they have. 
+	$submissionIDsWithRatings  = array();
+	foreach($idSubmissions as $idSubmission) {
+		$result = mysqli_query($con, "select count(id) as count from rating where id_submission = " . $idSubmission);
+		$row = mysqli_fetch_array($result);
+		$count = $row['count'];
+		if($count > 0) {
+			array_push($submissionIDsWithRatings, array($idSubmission, $count));
+		}
+	}
+	
+	foreach($submissionIDsWithRatings as $submissionID) {
+		echo $submissionID[0] . " - " . $submissionID[1] . "<br />";
+	}
+	//Sort them in descending order 
+	
+	//return the top ten
+}
+
+function selectPopularArtists($idMedium) {
 	
 }
 
-function selectPopularWorks($mediumType) {
-	
+/* Returns array $genres
+	When you foreach($genres as $genre), you have: 
+		$genre['id']
+		$genre['genre']
+*/
+function selectMediumGenres($idMedium) {
+	$con = connectToDatabase();
+	$result = mysqli_query($con, "Select id, name from genre where id_medium = " . $idMedium);
+	$genres = array();
+	while($row = mysqli_fetch_array($result)) {
+		$genre = array("id" => $row['id'], "genre" =>$row['name']);
+		array_push($genres, $genre);
+	}
+	mysqli_close($con);
+	return $genres;
+}
+
+function searchByGenre($idGenre) {
+	$con = connectToDatabase();
+	$result = mysqli_query($con, "Select id_submission from submission_genre where id_genre = " . $idGenre);
+	$submissionIDs = array();
+	while($row = mysqli_fetch_array($result)) {
+		array_push($submissionIDs, $row['id_submission']);
+	}
+	$submissions = array();
+	foreach($submissionIDs as $submissionID) {
+		$submission = selectSubmission($submissionID);
+		array_push($submissions, $submission);
+	}
+	mysqli_close($con);
+	return $submissions;
 }
 
 
