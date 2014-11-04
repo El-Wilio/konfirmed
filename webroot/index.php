@@ -1,13 +1,11 @@
 <?php 
 include_once('../code/backbone.php');
-selectPopularSubmissions(1);
+selectPopularArtists(1);
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <title>Konfirmed</title>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,700,300,600' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
         <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
         <meta class="viewport" name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="scripts/redirect.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
@@ -15,7 +13,7 @@ selectPopularSubmissions(1);
         <script src="scripts/login-register.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
         <script src="https://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
         <link rel="stylesheet" href="stylesheets/style.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
-        
+        <link rel="stylesheet" href="stylesheets/fonts.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
     </head>
     <body>
         <div class="navigation-background"></div>
@@ -70,11 +68,6 @@ selectPopularSubmissions(1);
           </ul><!--
           --><ul class="category-table">
             <li>Popular Works</li>
-            <li>Something by Something</li>
-            <li>Somewhere by Somewhere</li>
-            <li>OK by OK</li>
-            <li>Testing by Testing yo</li>
-            <li>THE GREATEST STUFF</li>
           </ul>
         </div>
     </body>

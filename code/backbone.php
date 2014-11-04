@@ -397,7 +397,25 @@ function search($tags) {
 	return $submissions;
 }
 
-function selectPopularSubmissions($idMedium) {
+
+/*
+	Returns an array of the top 10 most popular submissions of the passed mediumID. 
+	If we do foreach($arr as $submission), we have the following data available: 
+	$submission['id']
+	$submission['id_account']
+	$submission['id_medium']
+	$submission['title']
+	$submission['date_submitted']
+	$submission['filename']
+	$submission['extension']
+	$submission['medium']
+	$submission['genres'] (another array, index based, no keys)
+	$submission['tags'] (another array, index based, no keys)
+	$submission['rating'] (returns a decimal from 0 to 5)
+	$submission['numRatings'] (returns the amount of ratings that submission has received)
+	
+*/
+function selectPopularSubmissions($idMedium, $limitToTen = true) {
 	$con = connectToDatabase();
 	//Get all the submissions with this medium. 
 	$result = mysqli_query($con, "Select distinct(id) from submission where id_medium = " . $idMedium);
@@ -406,7 +424,7 @@ function selectPopularSubmissions($idMedium) {
 		array_push($idSubmissions, $row['id']);
 	}
 	//Get all the submissions from the previous list that are also in rating
-	$query = "Select distinct(id) as id from rating where id_submission in(";
+	$query = "Select distinct(id_submission) as id from rating where id_submission in(";
 	foreach($idSubmissions as $idSubmission) {
 		$query .= $idSubmission;
 		if($idSubmissions[count($idSubmissions)-1] != $idSubmission) {
@@ -421,24 +439,71 @@ function selectPopularSubmissions($idMedium) {
 	}
 	//For each submission in that list, count how many ratings they have. 
 	$submissionIDsWithRatings  = array();
+	$submissionIDsWithRatings[0] = array();
+	$submissionIDsWithRatings[1] = array();
+	
 	foreach($idSubmissions as $idSubmission) {
 		$result = mysqli_query($con, "select count(id) as count from rating where id_submission = " . $idSubmission);
 		$row = mysqli_fetch_array($result);
 		$count = $row['count'];
 		if($count > 0) {
-			array_push($submissionIDsWithRatings, array($idSubmission, $count));
+			array_push($submissionIDsWithRatings[0], $idSubmission);
+			array_push($submissionIDsWithRatings[1], $count);
 		}
 	}
 	
-	foreach($submissionIDsWithRatings as $submissionID) {
-		echo $submissionID[0] . " - " . $submissionID[1] . "<br />";
-	}
-	//Sort them in descending order 
+	//Sort them in descending order
+	array_multisort($submissionIDsWithRatings[1], SORT_DESC, $submissionIDsWithRatings[0]);
 	
 	//return the top ten
+	$sub = array();
+	if($limitToTen) {
+		$sub["id"] = array_slice($submissionIDsWithRatings[0], 0, 10);
+		$sub["count"] = array_slice($submissionIDsWithRatings[1], 0, 10);
+	} else {
+		$sub["id"] = $submissionIDsWithRatings[0];
+		$sub["count"] = $submissionIDsWithRatings[1];
+	}
+	
+	//turn this into an array of the top ten most popular submissions with this medium. 
+	$submissions = array();
+	for($x = 0; $x < count($sub["id"]); $x++) {
+		$submission = selectSubmission($sub["id"][$x]);
+		$submission["numRatings"] = $sub["count"][$x];
+		array_push($submissions, $submission);
+	}
+	mysqli_close($con);
+	return $submissions;
 }
 
+/*
+	
+*/
 function selectPopularArtists($idMedium) {
+	$popularWorks = selectPopularSubmissions($idMedium, false);
+	
+	$popularArtists = array();
+	$popularArtists["idAccount"] = array();
+	$popularArtists["numRatings"] = array();
+	
+	$popularArtists["idAccount"][0] = 1;
+	$popularArtists["numRatings"][0] = 4;
+	
+	foreach($popularWorks as $work) {
+		if(in_array($work['id_account'], $popularArtists["idAccount"])) {
+			$index = array_search($work['id_account'], $popularArtists["idAccount"]);
+			$popularArtists["numRatings"][$index] += $work["numRatings"];
+		} else {
+			array_push($popularArtists["idAccount"], $work["id_account"]);
+			$index = array_search($work["id_account"], $popularArtists["idAccount"]);
+			$popularArtists["idAccount"][$index] = $work["numRatings"];
+		}
+	}
+	
+	for($x = 0; $x < count($popularArtists["idAccount"]); $x++) {
+		echo "ID: " . $popularArtists["idAccount"][$x] . "   Count: " . $popularArtists["numRatings"][$x] . "<br />";
+	}
+	
 	
 }
 
@@ -473,6 +538,60 @@ function searchByGenre($idGenre) {
 	}
 	mysqli_close($con);
 	return $submissions;
+}
+
+function selectSpotlightArtists() {
+	$con = connectToDatabase();
+	$arr = array();
+	
+	$result = mysqli_query($con, "Select id_account from spotlight");
+	while($row = mysqli_fetch_array($result)) {
+		array_push($arr, selectProfile($row['id_account']));
+	}
+	
+	mysqli_close($con);
+	return $arr;
+}
+
+function selectSpotlightSubmissions() {
+	$con = connectToDatabase();
+	$arr = array();
+	
+	$result = mysqli_query($con, "Select id_submission from spotlight");
+	while($row = mysqli_fetch_array($result)) {
+		array_push($arr, selectSubmission($row['id_submission']));
+	}
+	
+	mysqli_close($con);
+	return $arr;
+}
+
+function insertSpotlightArtist($idAccount) {
+	$con = connectToDatabase();
+	
+	
+	mysqli_close($con);
+}
+
+function insertSpotlightSubmission($idSubmission) {
+	$con = connectToDatabase();
+	
+	
+	mysqli_close($con);
+}
+
+function deleteSpotlightArtist($idAccount) {
+	$con = connectToDatabase();
+	
+	
+	mysqli_close($con);
+}
+
+function deleteSpotlightSubmission($idSubmission) {
+	$con = connectToDatabase();
+	
+	
+	mysqli_close($con);
 }
 
 
