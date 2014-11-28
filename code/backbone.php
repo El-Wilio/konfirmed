@@ -23,7 +23,7 @@ function isLoggedInAsAdmin() {
 }
 
 function isProfileEmpty() {
-	if (isset($_SESSION['LoggedInAs'])) {;
+	if (isset($_SESSION['LoggedInAs'])) {
 		$con = connectToDatabase();
 		$result = mysqli_query($con, "Select id from account where username = '" . $_SESSION['LoggedInAs'] . "'");
 		$row = mysqli_fetch_array($result);
@@ -32,7 +32,7 @@ function isProfileEmpty() {
 		//$result = mysqli_query($con, "Select count(id) as 'HasProfile' From profile where id_account = '123456789'");
 		$row = mysqli_fetch_array($result);
 		$isProfileEmpty = true;
-		if($row['HasProfile']) {
+		if($row['HasProfile'] > 0) {
 			$isProfileEmpty = false;
 		}
 		
@@ -109,6 +109,29 @@ function selectAccountSubmissions($accountID) {
 	return $submissions;
 }
 
+function selectLastFiveSubmissions($accountID) {
+	$con = connectToDatabase();
+	//1. Get all submissions 
+	$result = mysqli_query($con, "Select * from submission where id_account = '" . $accountID . "' order by date_submitted desc LIMIT 5");
+	//2. Put each one into the array that is to be returned to the front end
+	$submissions = array();
+	while($submission = mysqli_fetch_array($result)) {
+		//Also get the aggregate data: 
+		//	medium, genres, tags, and rating
+		$mediumText = selectMedium($submission['id_medium']);
+		$submission['medium'] = $mediumText;
+		$genres = selectGenres($submission['id']);
+		$submission['genres'] = $genres;
+		$tags = selectTags($submission['id']);
+		$submission['tags'] = $tags;
+		$rating = getRating($submission['id']);
+		$submission['rating'] = $rating;
+		array_push($submissions, $submission);
+	}
+	mysqli_close($con);
+	return $submissions;
+}
+
 function selectMedium($idMedium) {
 	$con = connectToDatabase();
 	$result = mysqli_query($con, "Select name from medium where id = " . $idMedium);
@@ -149,6 +172,7 @@ function getRating($idSubmission) {
 	$row = mysqli_fetch_array($result);
 	$avgRating = $row['avgRating'];
 	mysqli_close($con);
+    if ($avgRating == null) return "no rating";
 	return $avgRating;
 }
 
@@ -177,8 +201,8 @@ function interpretDate($theDate) {
 
 function insertRating($submissionID, $accountID, $rating) {
 	$con = connectToDatabase();
-	
-	$result = mysqli_query($con, "Select * from rating where id_account = 99 and id_submission = " . $submissionID);
+	mysqli_query($con, "Delete from rating where id_submission = " . $submissionID . " and id_account = " . $accountID);
+	$result = mysqli_query($con, "Select * from rating where id_account = " . $accountID . " and id_submission = " . $submissionID);
 	
 	if($row = mysqli_fetch_array($result)) {
 		$retval = false;
@@ -354,6 +378,26 @@ function selectSubmission($submissionID) {
 	return $submission;
 }
 
+function selectGroupSubmissionMedium($mediumID, $start, $repetition) {
+  $con = connectToDatabase();
+	//1. Get all submissions 
+	$result = mysqli_query($con, "Select * from submission where id > " . $start . " AND id_medium = " . $mediumID . " LIMIT ". $repetition);
+	$submissions = array();
+	while($submission = mysqli_fetch_array($result)) {
+		$mediumText = selectMedium($submission['id_medium']);
+		$submission['medium'] = $mediumText;
+		$genres = selectGenres($submission['id']);
+		$submission['genres'] = $genres;
+		$tags = selectTags($submission['id']);
+		$submission['tags'] = $tags;
+		$rating = getRating($submission['id']);
+		$submission['rating'] = $rating;
+		array_push($submissions, $submission);
+	}
+	mysqli_close($con);
+	return $submissions;
+}
+
 function selectGroupSubmission($accountID, $start, $repetition) {
   $con = connectToDatabase();
 	//1. Get all submissions 
@@ -457,6 +501,7 @@ function search($tags) {
 */
 function selectPopularSubmissions($idMedium, $limitToTen = true) {
 	$con = connectToDatabase();
+    $submissions = array();
 	//Get all the submissions with this medium. 
 	$result = mysqli_query($con, "Select distinct(id) from submission where id_medium = " . $idMedium);
 	$idSubmissions = array();
@@ -474,45 +519,50 @@ function selectPopularSubmissions($idMedium, $limitToTen = true) {
 	$query .= ")";
 	$result = mysqli_query($con, $query);
 	$idSubmissions = array();
-	while($row = mysqli_fetch_array($result)) {
-		array_push($idSubmissions, $row['id']);
-	}
-	//For each submission in that list, count how many ratings they have. 
-	$submissionIDsWithRatings  = array();
-	$submissionIDsWithRatings[0] = array();
-	$submissionIDsWithRatings[1] = array();
+    if(gettype($result) != "boolean") {
+        while($row = mysqli_fetch_array($result)) {
+            array_push($idSubmissions, $row['id']);
+        }
+        //For each submission in that list, count how many ratings they have. 
+        $submissionIDsWithRatings  = array();
+        $submissionIDsWithRatings[0] = array();
+        $submissionIDsWithRatings[1] = array();
 	
-	foreach($idSubmissions as $idSubmission) {
-		$result = mysqli_query($con, "select count(id) as count from rating where id_submission = " . $idSubmission);
-		$row = mysqli_fetch_array($result);
-		$count = $row['count'];
-		if($count > 0) {
-			array_push($submissionIDsWithRatings[0], $idSubmission);
-			array_push($submissionIDsWithRatings[1], $count);
-		}
-	}
+        foreach($idSubmissions as $idSubmission) {
+            $result = mysqli_query($con, "select count(id) as count from rating where id_submission = " . $idSubmission);
+            $row = mysqli_fetch_array($result);
+            $count = $row['count'];
+            if($count > 0) {
+                array_push($submissionIDsWithRatings[0], $idSubmission);
+                array_push($submissionIDsWithRatings[1], $count);
+            }
+        }
 	
-	//Sort them in descending order
-	array_multisort($submissionIDsWithRatings[1], SORT_DESC, $submissionIDsWithRatings[0]);
+        //Sort them in descending order
+        array_multisort($submissionIDsWithRatings[1], SORT_DESC, $submissionIDsWithRatings[0]);
 	
-	//return the top ten
-	$sub = array();
-	if($limitToTen) {
-		$sub["id"] = array_slice($submissionIDsWithRatings[0], 0, 10);
-		$sub["count"] = array_slice($submissionIDsWithRatings[1], 0, 10);
-	} else {
-		$sub["id"] = $submissionIDsWithRatings[0];
-		$sub["count"] = $submissionIDsWithRatings[1];
-	}
+        //return the top ten
+        $sub = array();
+        if($limitToTen) {
+            $sub["id"] = array_slice($submissionIDsWithRatings[0], 0, 10);
+            $sub["count"] = array_slice($submissionIDsWithRatings[1], 0, 10);
+        } else {
+            $sub["id"] = $submissionIDsWithRatings[0];
+            $sub["count"] = $submissionIDsWithRatings[1];
+        }
 	
-	//turn this into an array of the top ten most popular submissions with this medium. 
-	$submissions = array();
-	for($x = 0; $x < count($sub["id"]); $x++) {
-		$submission = selectSubmission($sub["id"][$x]);
-		$submission["numRatings"] = $sub["count"][$x];
-		array_push($submissions, $submission);
-	}
-	mysqli_close($con);
+        //turn this into an array of the top ten most popular submissions with this medium. 
+        for($x = 0; $x < count($sub["id"]); $x++) {
+            $submission = selectSubmission($sub["id"][$x]);
+            $submission["numRatings"] = $sub["count"][$x];
+            array_push($submissions, $submission);
+        }
+    }
+    else {
+        $submission = array(false, 0, 0, 0, 0, 'no entry');
+        array_push($submissions, $submission);
+    }
+    mysqli_close($con);
 	return $submissions;
 }
 
@@ -523,46 +573,51 @@ function selectPopularArtists($idMedium) {
 	//Call getPopularSubmissions and don't limit to 10 submissions.
 	//Use this data to determine popular Artists.
 	$popularWorks = selectPopularSubmissions($idMedium, false);
+    $artists = array();
+	if ($popularWorks[0][0] != false) {
+        //First, go through the Popular Works and get all the artists in there. 
+        $popularArtists = array();
+        $popularArtists["idAccount"] = array();
+        $popularArtists["numRatings"] = array();
+        foreach($popularWorks as $work) {
+            $idAccount = $work['id_account'];
+            if(in_array($idAccount, $popularArtists["idAccount"]) == FALSE) {
+                array_push($popularArtists["idAccount"], $idAccount);
+            }
+        }
 	
-	//First, go through the Popular Works and get all the artists in there. 
-	$popularArtists = array();
-	$popularArtists["idAccount"] = array();
-	$popularArtists["numRatings"] = array();
-	foreach($popularWorks as $work) {
-		$idAccount = $work['id_account'];
-		if(in_array($idAccount, $popularArtists["idAccount"]) == FALSE) {
-			array_push($popularArtists["idAccount"], $idAccount);
-		}
-	}
-	
-	//Then go through the popular works again. For each popular work: 
-	foreach($popularWorks as $work) {
-		//	1. Get the ID and rating
-		$idAccount = $work['id_account'];
-		$rating = $work['numRatings'];
-		//	2. Get the index for the ID, 
-		$index = array_search($idAccount, $popularArtists["idAccount"]);
-		//	3. Then at the same index for the rating, check to see if there's a rating count
-		if(isset($popularArtists["numRatings"][$index])) {
-		//		If yes: add the rating
-			$popularArtists["numRatings"][$index] += $rating;
-		} else {
-		//		If no: set the rating
-			$popularArtists["numRatings"][$index] = $rating;
-		}
-	}
-	//	4. Sort the artists by numRatings, best to worst
-	array_multisort($popularArtists["numRatings"], SORT_DESC, $popularArtists["idAccount"]);
-	//	5. Keep the top 10
-	array_slice($popularArtists["numRatings"], 0, 10);
-	array_slice($popularArtists["idAccount"], 0, 10);
-	//	6. Put all that into one nice array to return to the front end
-	$artists = array();
-	for($x = 0; $x < count($popularArtists["numRatings"]); $x++) {
-		$artist = selectProfile($popularArtists["idAccount"][$x]);
-		$artist['numRatings'] = $popularArtists["numRatings"][$x];
-		array_push($artists, $artist);
-	}
+        //Then go through the popular works again. For each popular work: 
+        foreach($popularWorks as $work) {
+            //	1. Get the ID and rating
+            $idAccount = $work['id_account'];
+            $rating = $work['numRatings'];
+            //	2. Get the index for the ID, 
+            $index = array_search($idAccount, $popularArtists["idAccount"]);
+            //	3. Then at the same index for the rating, check to see if there's a rating count
+            if(isset($popularArtists["numRatings"][$index])) {
+            //		If yes: add the rating
+                $popularArtists["numRatings"][$index] += $rating;
+            } else {
+            //		If no: set the rating
+                $popularArtists["numRatings"][$index] = $rating;
+            }
+        }
+        //	4. Sort the artists by numRatings, best to worst
+        array_multisort($popularArtists["numRatings"], SORT_DESC, $popularArtists["idAccount"]);
+        //	5. Keep the top 10
+        array_slice($popularArtists["numRatings"], 0, 10);
+        array_slice($popularArtists["idAccount"], 0, 10);
+        //	6. Put all that into one nice array to return to the front end
+        for($x = 0; $x < count($popularArtists["numRatings"]); $x++) {
+            $artist = selectProfile($popularArtists["idAccount"][$x]);
+            $artist['numRatings'] = $popularArtists["numRatings"][$x];
+            array_push($artists, $artist);
+        }
+    }
+    else {
+        $artist = array(false, 0, 0, 0, 'no', 'entry');
+        array_push($artists, $artist);
+    }
 	return $artists;
 }
 
@@ -605,11 +660,33 @@ function selectSpotlightArtists() {
 	
 	$result = mysqli_query($con, "Select id_account from spotlight");
 	while($row = mysqli_fetch_array($result)) {
-		array_push($arr, selectProfile($row['id_account']));
+        if($row['id_account'] != '') {
+            array_push($arr, selectProfile($row['id_account']));
+        }
 	}
 	
 	mysqli_close($con);
 	return $arr;
+}
+
+function isSpotlightedArtist($id) {
+	$con = connectToDatabase();
+	
+	$result = mysqli_query($con, "Select * FROM spotlight WHERE id_account='$id' LIMIT 1");
+    if(mysqli_fetch_row($result)) $message = 'yes';
+    else $message = 'no';
+	mysqli_close($con);
+	return $message;
+}
+
+function isSpotlightedSubmission($id) {
+	$con = connectToDatabase();
+
+	$result = mysqli_query($con, "Select * FROM spotlight WHERE id_submission='$id' LIMIT 1");
+    if(mysqli_fetch_row($result)) $message = 'yes';
+    else $message = 'no';
+	mysqli_close($con);
+	return $message;
 }
 
 function selectSpotlightSubmissions() {
@@ -618,11 +695,39 @@ function selectSpotlightSubmissions() {
 	
 	$result = mysqli_query($con, "Select id_submission from spotlight");
 	while($row = mysqli_fetch_array($result)) {
+        if($row['id_submission'] != '') {
 		array_push($arr, selectSubmission($row['id_submission']));
+        }
 	}
 	
 	mysqli_close($con);
 	return $arr;
+}
+
+function selectSpotlightSubmissionsByMedium($mediumID) {
+	$con = connectToDatabase();
+	$arr = array();
+    $submissions = array();
+	
+	$result = mysqli_query($con, "Select id_submission from spotlight");
+	while($row = mysqli_fetch_array($result)) {
+        if($row['id_submission'] != '') {
+		array_push($arr, $row['id_submission']);
+        }
+	}
+	
+    foreach($arr as $value) {
+        $result = mysqli_query($con, "Select id_medium FROM submission WHERE id='$value' LIMIT 1");
+        while ($row = mysqli_fetch_row($result)) {
+            if($row[0] == $mediumID) {
+                array_push($submissions, selectSubmission($value));
+            }
+        }
+    }
+    
+	mysqli_close($con);
+	return $submissions;
+
 }
 
 function insertSpotlightArtist($idAccount) {
@@ -695,5 +800,23 @@ function deleteSpotlightSubmission($idSubmission) {
 	return $retval;
 }
 
+function toStar($rating) {
+
+    $width = ($rating / 5.0) * 68.0;
+    
+    if($submission['rating'] == "no rating") {
+                    echo $submission['rating'];
+     }
+     else {
+                
+        echo '<div class="star-holder">';
+        echo '<div class="star-rating" style="width: '.$width.'px">';
+        echo '</div>';
+        echo '<div class="star-rating-shadow">';
+        echo '</div>';
+        echo '</div>';
+    }
+
+}
 
 ?>

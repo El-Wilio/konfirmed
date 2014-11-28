@@ -1,0 +1,748 @@
+@import 'topnav.css';
+@import 'fonts.css';
+@import 'left.css';
+
+html, body {
+    margin: 0;
+    padding-left: 0;
+    height: 100%;
+    width: 100%;
+    background: url('../images/pattern3.png');
+}
+
+html {
+    min-width: 320px;
+}
+
+body {
+    min-width: 320px;
+}
+
+.wrapper {
+  background-color: white;
+  border-left: 1px solid #BABABA;
+  border-right: 1px solid #BABABA;
+  position: relative;
+  width: 75rem;
+  height: 100%;
+  margin: 0 auto;
+}
+
+li , a, h2, h3, h4, h5, h6 {
+    font-family: 'Open Sans', sans-serif;
+}
+
+p, input, span {
+    font-family: 'Quattrocento', sans-serif;
+}
+
+p {
+    padding-right: 5px;
+}
+
+h1 {
+  font-family: 'Arvo', serif;
+}
+
+a {
+    color: #313131;
+    text-decoration: none;
+    transition: color 0.5s;
+}
+
+a:hover {
+  color: black;
+}
+
+h1.home-title {
+  font-size: 18px;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 5px;
+  margin-top: 0;
+}
+
+.content {
+  background-color: white;
+  top: 30px;
+  float: left;
+  width: calc(50%);
+  position: relative;
+}
+
+.info{
+  background-color: #fff;
+  padding-left: 10px;
+  padding-top: 30px;
+  top: 30px;
+  float: left;
+  width: calc(50% - 10px);
+  position: relative;
+}
+
+.cotent:after, .info:after {
+    clear: both;
+}
+
+.info:after, .content:after {
+    clear: both;
+}
+
+.content-presentation {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;      
+}
+
+.content-presentation img {
+  position: relative;
+  bottom: 500px;
+}
+
+.picture {
+    width: 90%;
+    height: 350px;
+}
+
+.text {
+  width: 70%;
+}
+
+.right-sidebar {
+  width: 250px;
+  height: calc(100% - 42px);
+  right: 0;
+  top: 41px;
+}
+
+.left-sidebar {
+  width: 300px;
+  top: 41px;
+  height: calc(100% - 42px);
+  left: 0;
+}
+
+.left-sidebar, .right-sidebar {
+  position: absolute;
+}
+
+div.profile-picture {
+  margin-top: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+img.profile-picture {
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+  padding: 4px;
+  border: 1px solid #BABABA;
+  border-radius: 10px;
+  background-color: white;
+}
+
+div.profile-info {
+  border-radius: 10px;
+  width: 90%;
+  padding: 5px 0 10px;
+  background-color: #bf1e2e;
+  margin: 5%;
+  color: white;
+}
+
+
+div.profile-info > h1 {
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+p.profile-info {
+  padding-left: 10px;
+  height: 18px;
+  position: relative;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+p.warning {
+    font-size: 11px;
+    margin-left: 5px;
+}
+
+p.image {
+    margin-left: 5px;
+}
+
+p.profile-name {
+  color: #313131;
+  margin-top: 0;
+  height: 18px;
+  position: relative;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/** Icons **/
+
+.logo {
+  z-index: 80;
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 150px;
+  background: url('../images/logo.png') no-repeat center center;
+}
+
+.menu-items{
+    list-style-type: none;
+    width: 100%;
+    position: relative;
+    display: block;
+}
+
+.menu-items li {
+    width: 100%;
+}
+
+.menu-items li:not(:last-child) {
+
+}
+
+.box {
+    position: relative;
+    line-height: 0;
+    display: block;
+    width: 150px;
+    height: 150px;
+    right: 0;
+    transition: background-color 0.5s;
+}
+
+.box:hover {
+    background-color: #7F0E00;
+}
+
+.music {
+    background: url('../images/icon_music.png') no-repeat center center,
+                #bf1e2e;
+    background-size: 150px auto;
+}
+
+.art {
+    background: url('../images/icon_art.png') no-repeat center center,
+                #bf1e2e;
+    background-size: 150px auto;
+}
+
+.photography {
+    background: url('../images/icon_videography.png') no-repeat center center,
+                #bf1e2e;
+    background-size: 150px auto;
+}
+
+.writer {
+    background: url('../images/icon_writer.png') no-repeat center center,
+                #bf1e2e;
+    background-size: 150px auto;
+}
+
+.icon {
+   width: 20px;
+   height: auto;
+}
+
+.bio:after {
+  font-weight: normal;
+}
+
+.location:before, .artist:before, .birthday:before, .email:before
+{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    content: "";
+}
+
+.location:before {
+    background: url("../images/location.png") no-repeat 0 0;
+    background-size: 100%;
+}
+
+.artist:before {
+    background: url("../images/artist.png") no-repeat 0 0;
+    background-size: 100%;
+}
+
+.birthday:before {
+    background: url("../images/birthday.png") no-repeat 0 0;
+    background-size: 100%;
+}
+
+.email:before {
+    background: url("../images/email.png") no-repeat 0 0;
+    background-size: 100%;
+}
+
+p.profile-name {
+  text-align: center;
+  font-weight: bold;
+}
+
+span.totheleft {
+  display: inline-block;
+  position: absolute;
+  left: 125px;
+  top: 3px;
+}
+
+ul.inline  > li{
+    display: inline;
+}
+
+/**category **/
+
+.spotlights, .submissions {
+    width: calc(100% - 100x); 
+    margin-top: 50px; 
+    padding: 0 0 10px 0;
+}
+
+.spotlights {
+    padding-left: 100px;
+    height: 450px;
+}
+
+.submissions {
+    padding-left: 100px;
+    height: calc(90% - 450px);
+}
+
+.spotlights {
+    background-color: #bf1e2e;
+}
+
+.spotlights  h1 {
+    position: relative;
+    color: white;
+}
+
+.submissions  h1 {
+    position: relative;
+}
+
+.spotlight-view, .submission-view {
+    margin-left: 25px;
+    display: inline-block;
+    margin-top: 5px;
+    margin-bottom: 25px;
+    position: relative; 
+}
+
+.spotlight-view a, .spotlight-view, .spotlight-view span {
+    color: white;
+}
+
+.container {
+    overflow: hidden;
+    width: 300px; 
+    height: 300px; 
+    position: relative;
+}
+
+.spotlight-view > .container {
+    width: 450px; 
+    height: 300px; 
+    position: relative;
+}
+
+
+.container-info {
+    width: 300px; 
+    position: relative;
+}
+
+.container-info span {
+    display: block;
+    left: 0;
+}
+
+.selected-category {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: #bf1e2e;
+}
+
+ul.category-table {
+  float: left;
+  list-style-type: none;
+  padding: 0;
+  top: 50px;
+  margin: 0;
+  width: 25%;
+  left: calc(6.25%);
+  line-height: normal;
+  position: relative;
+  display: inline-block;
+}
+
+ul.category-table:not(:last-child) {
+  margin-right: calc(6.25%);
+}
+
+ul.category-table > li {
+  padding: 5px;
+  height: 25px;
+  position: relative;
+  display: block;
+  line-height: normal;
+}
+
+ul.category-table li:first-child {
+  font-family: 'Arvo', serif;
+  font-size: 22px;
+  border-bottom-style: double;
+}
+
+ul.category-table li:nth-child(even) {
+  background-color: #D62D17;
+}
+
+ul.category-table li:nth-child(odd) {
+
+}
+
+ul.category-table::after {
+  clear: both;
+}
+
+img.close-selected-category {
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+/**star**/
+
+img.star{
+    position: absolute;
+    display: inline-block;
+    float: left;
+    width: 25px;
+    height: 25px;
+}
+
+.star1 {
+    left: 0;
+}
+.star2 {
+    left: 25px;
+}
+.star3 {
+    left: 50px;
+}
+.star4 {
+    left: 75px;
+}
+.star5 {
+    left: 100px;
+}
+
+img.star-shadow{
+    display: inline-block;
+    float: left;
+    width: 25px;
+    height: 25px;
+}
+
+.star::after . .star-shadow::after{
+    clear: both;
+}
+
+.star-holder {
+    margin: 0 auto;
+    display: block;
+    width: 125px;
+    height: 25px;
+    position: relative;
+}
+
+.star-rating { 
+    white-space: nowrap;
+    position: absolute;
+    width: 0px;
+    height: 25px;
+    overflow: hidden;
+}
+
+.star-rating-shadow {
+    position: absolute;
+    width: 125px;
+    height: 25px;
+    opacity: 0.4;
+}
+
+/** input **/
+
+.submission-input {
+  border: 1px solid #AAAAAA;
+  border-radius: 3px;
+  padding: 10px;
+  margin: 5px;
+  font-size: 16px;
+  display: inline-block;
+  width: 200px;
+}
+
+.gender-input {
+  border: 1px solid #AAAAAA;
+  border-radius: 3px;
+  padding: 5px;
+  margin: 5px;
+  font-size: 14px;
+  display: inline-block;
+  width: 200px;
+}
+
+.date-input {
+  font-size: 12px;
+  border: 1px solid #AAAAAA;
+  border-radius: 3px;
+  padding: 5px;
+  margin: 0;
+  display: inline-block;
+  width: 200px;
+}
+
+.large {
+    width: 435px;
+}
+
+.input-box {
+    display: block;
+}
+
+.submission-input::after {
+    clear: both;
+}
+
+ .date-box {
+    margin: 0 auto;
+    position: relative;
+    display: inline-block;
+  }
+  
+ .date-holder {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: block;
+    width: 100%;
+    position: relative;
+  }
+
+.tags {
+    width: 300px;
+}
+
+.submission-checkbox {
+  padding: 5px 10px;
+  margin: 5px auto;
+  font-size: 16px;
+  display: block;
+  width: 250px;
+}
+
+.send-information {
+  font-family: 'Arvo', serif;
+  padding: 10px;
+  display: block;
+  width: 175px;
+  border: none;
+  margin: 5px 0 0 5px;
+  background-color: #183058;
+  color: white;
+}
+
+.text-zone {
+    width: 500px;
+    height: 300px;
+}
+
+.year {
+  margin-left: 5px;
+  width: 90px;
+}
+
+.month, .day {
+  width: 70px;
+}
+
+.submission-input:focus, .submission-input:focus {
+  box-shadow: 0px 0px 5px #000;
+}
+
+@media screen and (max-width: 1200px) {
+
+.wrapper {
+    left: 0;
+    width: calc(100% - 2px);
+}
+
+}
+
+@media screen and (max-width: 977px) {
+
+.wrapper {
+    border: none;
+}
+
+.info {
+    padding-top: 30px;
+    padding-left: 5px;
+    border-left: 1px solid #BABABA;
+    border-right: 1px solid #BABABA;
+    padding-left: 50px;
+    width: calc(100% - 52px);
+}
+
+
+.content {
+    border-left: 1px solid #BABABA;
+    border-right: 1px solid #BABABA;
+    padding-left: 50px;
+    width: calc(100% - 52px);
+}
+
+}
+
+@media screen and (max-width: 977px) and (max-height: 867px) {
+
+.image {
+    padding-left: 5px;
+    float: left;
+    display: inline-block;
+    width: 275px;
+}
+
+.form {
+    padding-top: 12px;
+    float: left;
+    display: inline-block;
+    width: 400px;
+}
+
+.submission-input {
+    font-size: 14px;
+    width: 130px;
+}
+
+}
+
+@media screen and (max-width: 936px) and (max-height: 867px) {
+
+.form {
+    padding-top: 12px;
+    float: left;
+    display: inline-block;
+    width: 250px;
+}
+
+
+}
+
+
+
+@media screen and (max-width: 630px) {
+
+.image {
+    width: 100%;
+}
+
+.submission-input {
+    width: 250px;
+}
+
+
+}
+
+@media all and (max-width: 1100px) {
+
+    .spotlights {
+        padding-left: 0;
+        height: 200px;
+    }
+
+    .submissions {
+        padding-left: 0;
+        height: calc(90% - 250px);
+    }
+
+    .spotlights  h1 {
+        position: relative;
+        left: 5%;
+        color: white;
+    }
+
+    .submissions  h1 {
+        position: relative;
+        left: 5%;
+    }
+
+    .spotlight-view, .submission-view {
+        margin-top: 25px;
+        width: 100%;
+        display: block;
+        position: relative; 
+        left: 5%;
+    }
+
+    .container {
+        width: 90%;
+        height: 100px;
+    }
+    
+    .spotlight-view > .container {
+        width: 90%;
+        height: 100px;
+    }
+
+    .container-info {
+        position: relative;
+        width: 90%;
+    }
+ 
+    .container-info span {
+        width: 100%;
+        position: absolute;
+        right: 0;
+    }
+
+
+}
+
+
+@media screen and (max-width: 360px) {
+
+.logo {
+    background-size: 250px auto;
+    background-position: left center;
+}
+
+.content {
+    padding-left: 10px;
+    width: calc(100% - 12px);
+}
+
+.submission-input {
+    font-size: 14px;
+    width: 200px;
+}
+
+}

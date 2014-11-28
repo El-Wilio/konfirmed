@@ -24,7 +24,7 @@ $(function() {
                         $('.error').html("I'm sorry, but it appears that the username or password is wrong.");
                     }
                     else if(data == "success") {
-                        location.reload();
+                        location.replace("http://www.konfirmed.com/temp/webroot/ajaxRequest.php?login=true");
                     }
                 },
                 error: function() {console.log('nope')}
@@ -39,5 +39,14 @@ $(function() {
             $('.login-box').animate({'opacity': 0.0}, 0);
             $('.login-box').empty();
         });
+        
+        $(window).keydown(function(e) {       
+            var key = e.which;
+            if (key == 13) {
+              e.preventDefault();
+              $('.login-submit').trigger('click');
+            }
+     
+        });            
     });
 </script>

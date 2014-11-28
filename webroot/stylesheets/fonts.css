@@ -1,0 +1,62 @@
+/** localyy include fonts **/
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/OpenSans-Regular.ttf') format('truetype'); 
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/OpenSans-Italic.ttf') format('truetype'); 
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/OpenSans-Bold.ttf') format('truetype'); 
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/OpenSans-BoldItalic.ttf') format('truetype'); 
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Signika';
+  src: url('../fonts/Signika-Regular.ttf') format('truetype'); 
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Signika';
+  src: url('../fonts/Signika-Bold.ttf') format('truetype'); 
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Arva';
+  src: url('../fonts/Arvo-Regular.ttf') format('truetype'); 
+}
+
+
+@font-face {
+  font-family: 'Arvo';
+  src: url('../fonts/Arvo-Bold.ttf') format('truetype'); 
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Quattrocento';
+  src: url('../fonts/Quattrocento-Regular.ttf') format('truetype'); 
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Quattrocento'';
+  src: url('../fonts/Quattrocento-Bold.ttf') format('truetype'); 
+  font-weight: bold;
+}

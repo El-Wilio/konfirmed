@@ -1,0 +1,46 @@
+html, body {
+    margin: 0;
+    padding-left: 0;
+    height: 100%;
+    width: 100%;
+    background: url('../images/pattern.png');
+    background-color: white;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+body {
+    min-width: 320px;
+    min-height: 380px;
+}
+
+p, li , a, input, h1, h2, h3, h4, h5, h6, span{
+    color: #313131;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.form-box {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: relative;
+    width: 100%;
+    background-color: #bf1e2e;
+}
+
+.input-box {
+    border: 1px solid gray;
+    width: 250px;
+    padding: 10px 5px 10px 5px;
+}
+
+.submit-box {
+    background: blue;
+    border: none;
+}
+
+.input-box, .submit-box {
+    margin: 0 auto 10px auto;
+    display: block;
+}

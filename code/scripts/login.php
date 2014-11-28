@@ -26,7 +26,6 @@
 	}
 	
 	function logout() {
-		session_start();
 		unset($_SESSION['LoggedInAs']);
 		session_destroy();
 	}

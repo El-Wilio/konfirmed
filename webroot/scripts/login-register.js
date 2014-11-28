@@ -38,9 +38,29 @@ $( function() {
         triggerDarkFilter();
         triggerRegisterBox();
     });
+     
+     
+    $('.login-click').on('click', function() {
+      
+        $.ajax({
+          url: 'login.php',
+          success: function(result) {$('.login-box').html(result)}
+        })
+      
+        triggerDarkFilter();
+        triggerLoginBox();
+    });
     
-    
-    /**ajax coding part **/
+    $('.register-click').on('click', function() {
+      
+        $.ajax({
+          url: 'register.php',
+          success: function(result) {$('.register-box').html(result)}
+        })
+      
+        triggerDarkFilter();
+        triggerRegisterBox();
+    });
     
     
 });
