@@ -1,20 +1,14 @@
-<a href="#" class="close-it">close</a>
+<h1 class="registration-title">Login</h1>
+<a href="#"><img src="images/x-icon.png" class="close-it" width="20px" height="auto"></a>
 <input type="email" name="email" class="login-input email-input" 
     placeholder="Please type in your email.">
 <span class="email_taken" style="font-size: 12px; display: block; position: relative; bottom: 10px;"></span>
 <input type="password" name="password" class="login-input password-input" 
     placeholder="Please enter your password.">
 <button class="login-submit">login</button>
-<<<<<<< HEAD
-
-<script>
-$(function() {
-=======
 <span class="error"></span>
-
 <script>
 $(function() {
-
         $('.login-submit').on('click', function() {
             $.ajax({ 
                 url: 'ajaxRequest.php',
@@ -30,14 +24,13 @@ $(function() {
                         $('.error').html("I'm sorry, but it appears that the username or password is wrong.");
                     }
                     else if(data == "success") {
-                        location.reload();
+                        location.replace("http://www.konfirmed.com/temp/webroot/ajaxRequest.php?login=true");
                     }
                 },
                 error: function() {console.log('nope')}
             })                
         });
 
->>>>>>> origin/william
         $('.close-it').on('click', function(e) {
             e.preventDefault();
             $('.darkfilter').toggle(0);
@@ -46,5 +39,14 @@ $(function() {
             $('.login-box').animate({'opacity': 0.0}, 0);
             $('.login-box').empty();
         });
+        
+        $(window).keydown(function(e) {       
+            var key = e.which;
+            if (key == 13) {
+              e.preventDefault();
+              $('.login-submit').trigger('click');
+            }
+     
+        });            
     });
 </script>
