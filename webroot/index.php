@@ -1,6 +1,5 @@
 <?php 
 include_once('../code/backbone.php');
-selectPopularArtists(1);
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,15 +49,10 @@ selectPopularArtists(1);
         <div class="login-box"></div>
         <div class="selected-category">
           <a href="#"><img src="images/x-icon.png" class="close-selected-category" width="20px" height="auto"></a>
-          <ul class="category-table">
+          <ul class="category-table top-genre">
             <li>Genre</li>
-            <li>Electronic</li>
-            <li>World Music</li>
-            <li>Rock Music</li>
-            <li>THE GREATEST STUFF</li>
-            <li>THE GREATEST STUFF</li>
           </ul><!--
-          --><ul class="category-table">
+          --><ul class="category-table top-artists">
             <li>Popular Artists</li>
             <li>William Wright</li>
             <li>Amine Khaite</li>

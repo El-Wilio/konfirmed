@@ -18,6 +18,10 @@ function isLoggedIn() {
 	return isset($_SESSION['LoggedInAs']);
 }
 
+function isLoggedInAsAdmin() {
+	return ($_SESSION['LoggedInAs'] == "admin@konfirmed.com");
+}
+
 function isProfileEmpty() {
 	if (isset($_SESSION['LoggedInAs'])) {;
 		$con = connectToDatabase();
@@ -42,6 +46,17 @@ function selectProfile($accountID) {
 	$con = connectToDatabase();
 	$result = mysqli_query($con, "Select * from profile where id_account = '" . $accountID . "'");
 	$profile = mysqli_fetch_array($result, MYSQLI_NUM);
+	
+	//Perform spotlight check
+	$isSpotlight = false;
+	$result = mysqli_query($con, "Select count(id) as count from spotlight where id_account = " . $accountID);
+	$row = mysqli_fetch_array($result);
+	if($row['count'] > 0) {
+		$isSpotlight = true;
+	}
+	
+	$profile['isSpotlight'] = $isSpotlight;
+	
 	mysqli_close($con);
 	return $profile;
 }
@@ -193,12 +208,12 @@ Required format for the $submissionData array:
 	$submissionData['extension']
 	$submissionData['genres'] (another array, indexed, not key-valued)
 	$submissionData['tags'] (another array, indexed, not key-valued. All tags should be just the string for the tag.)
+	$submissionData['text'] (Optional, only needed for text based submissions
 	*/
 function insertSubmission($submissionData) {
 	$con = connectToDatabase();
 	$today = date("Y-m-d");
-	echo "submissionData: <br />";
-	print_r($submissionData);
+	
 	mysqli_query($con, "Insert into submission (id_account, id_medium, title, date_submitted, filename, extension)
 			VALUES ('" . $submissionData['id_account'] . "', '" .
 						$submissionData['id_medium'] . "', '" .
@@ -207,22 +222,36 @@ function insertSubmission($submissionData) {
 						$submissionData['filename'] . "', '" .
 						$submissionData['extension'] . "')");
 						
-						
+	
+	//If it's a text file, take the text and put it in a text file. 					
+	if($submissionData['id_medium'] == 3) {	
+		makeTextFile($submissionData['filename'], $submissionData['extension'], $submissionData['text']);
+	}
+	
 	$submissionID = $con->insert_id;
+	
 	foreach($submissionData['genres'] as $genre) {
 		mysqli_query($con, "Insert into  submission_genre (id_submission, id_genre)
 							VALUES ('" . $submissionID . "', '" . $genre . "')");
 	}
-	
-	echo "<h2>Tags: </h2>";
-	print_r($submissionData['tags']);
 	
 	foreach($submissionData['tags'] as $tag) {
 		$tag = transformTagIntoTagID($tag);
 		mysqli_query($con, "Insert into submission_tag (id_submission, id_tag)
 							VALUES ('" . $submissionID . "', '" . $tag . "')");	
 	}
+    echo $submissionID;
 	mysqli_close($con);
+}
+
+
+/*
+	Internal file used by insertSubmission only when inserting a text submission
+	*/
+function makeTextFile($filename, $extension, $text) {
+	$myFile = fopen("submissions/text/" . $filename . "." . $extension, "w") or die("Unable to open file!");
+	fwrite($myFile, $text);
+	fclose($myFile);
 }
 
 //$add is boolean, true by default
@@ -310,6 +339,17 @@ function selectSubmission($submissionID) {
 	$submission['tags'] = $tags;
 	$rating = getRating($submission['id']);
 	$submission['rating'] = $rating;
+	
+	//Perform spotlight check
+	$isSpotlight = false;
+	$result = mysqli_query($con, "Select count(id) as count from spotlight where id_submission = " . $submissionID);
+	$row = mysqli_fetch_array($result);
+	if($row['count'] > 0) {
+		$isSpotlight = true;
+	}
+	
+	$submission['isSpotlight'] = $isSpotlight;
+	
 	mysqli_close($con);
 	return $submission;
 }
@@ -477,34 +517,53 @@ function selectPopularSubmissions($idMedium, $limitToTen = true) {
 }
 
 /*
-	
+	Returns the same thing as selectProfile but also has $arrName["numRatings"] at the end.
 */
 function selectPopularArtists($idMedium) {
+	//Call getPopularSubmissions and don't limit to 10 submissions.
+	//Use this data to determine popular Artists.
 	$popularWorks = selectPopularSubmissions($idMedium, false);
 	
+	//First, go through the Popular Works and get all the artists in there. 
 	$popularArtists = array();
 	$popularArtists["idAccount"] = array();
 	$popularArtists["numRatings"] = array();
-	
-	$popularArtists["idAccount"][0] = 1;
-	$popularArtists["numRatings"][0] = 4;
-	
 	foreach($popularWorks as $work) {
-		if(in_array($work['id_account'], $popularArtists["idAccount"])) {
-			$index = array_search($work['id_account'], $popularArtists["idAccount"]);
-			$popularArtists["numRatings"][$index] += $work["numRatings"];
-		} else {
-			array_push($popularArtists["idAccount"], $work["id_account"]);
-			$index = array_search($work["id_account"], $popularArtists["idAccount"]);
-			$popularArtists["idAccount"][$index] = $work["numRatings"];
+		$idAccount = $work['id_account'];
+		if(in_array($idAccount, $popularArtists["idAccount"]) == FALSE) {
+			array_push($popularArtists["idAccount"], $idAccount);
 		}
 	}
 	
-	for($x = 0; $x < count($popularArtists["idAccount"]); $x++) {
-		echo "ID: " . $popularArtists["idAccount"][$x] . "   Count: " . $popularArtists["numRatings"][$x] . "<br />";
+	//Then go through the popular works again. For each popular work: 
+	foreach($popularWorks as $work) {
+		//	1. Get the ID and rating
+		$idAccount = $work['id_account'];
+		$rating = $work['numRatings'];
+		//	2. Get the index for the ID, 
+		$index = array_search($idAccount, $popularArtists["idAccount"]);
+		//	3. Then at the same index for the rating, check to see if there's a rating count
+		if(isset($popularArtists["numRatings"][$index])) {
+		//		If yes: add the rating
+			$popularArtists["numRatings"][$index] += $rating;
+		} else {
+		//		If no: set the rating
+			$popularArtists["numRatings"][$index] = $rating;
+		}
 	}
-	
-	
+	//	4. Sort the artists by numRatings, best to worst
+	array_multisort($popularArtists["numRatings"], SORT_DESC, $popularArtists["idAccount"]);
+	//	5. Keep the top 10
+	array_slice($popularArtists["numRatings"], 0, 10);
+	array_slice($popularArtists["idAccount"], 0, 10);
+	//	6. Put all that into one nice array to return to the front end
+	$artists = array();
+	for($x = 0; $x < count($popularArtists["numRatings"]); $x++) {
+		$artist = selectProfile($popularArtists["idAccount"][$x]);
+		$artist['numRatings'] = $popularArtists["numRatings"][$x];
+		array_push($artists, $artist);
+	}
+	return $artists;
 }
 
 /* Returns array $genres
@@ -568,30 +627,72 @@ function selectSpotlightSubmissions() {
 
 function insertSpotlightArtist($idAccount) {
 	$con = connectToDatabase();
+	$query = "Insert into spotlight (id_account)
+				VALUES('" . $idAccount . "')";
+	mysqli_query($con, $query);
 	
-	
+	$retval = -1;
+	if(mysqli_affected_rows($con) == -1) {
+		$retval = false;
+	} else if(mysqli_affected_rows($con) == 1) {
+		$retval = true;
+	} else { 
+		$retval = -1;
+	}
+		
 	mysqli_close($con);
+	return $retval;
 }
 
 function insertSpotlightSubmission($idSubmission) {
 	$con = connectToDatabase();
+	$query = "Insert into spotlight (id_submission)
+				VALUES('" . $idSubmission . "')";
+	mysqli_query($con, $query);
 	
-	
+	$retval = -1;
+	if(mysqli_affected_rows($con) == -1) {
+		$retval = false;
+	} else if(mysqli_affected_rows($con) == 1) {
+		$retval = true;
+	} else { 
+		$retval = -1;
+	}
+		
 	mysqli_close($con);
+	return $retval;
 }
 
 function deleteSpotlightArtist($idAccount) {
 	$con = connectToDatabase();
-	
-	
+	$query = "Delete from spotlight where id_account = " . $idAccount;
+	mysqli_query($con, $query);
+	$retval = -1;
+	if(mysqli_affected_rows($con) == -1) {
+		$retval = false;
+	} else if(mysqli_affected_rows($con) == 1) {
+		$retval = true;
+	} else { 
+		$retval = -1;
+	}
 	mysqli_close($con);
+	return $retval;
 }
 
 function deleteSpotlightSubmission($idSubmission) {
 	$con = connectToDatabase();
-	
-	
+	$query = "Delete from spotlight where id_submission = " . $idSubmission;
+	mysqli_query($con, $query);
+	$retval = -1;
+	if(mysqli_affected_rows($con) == -1) {
+		$retval = false;
+	} else if(mysqli_affected_rows($con) == 1) {
+		$retval = true;
+	} else { 
+		$retval = -1;
+	}
 	mysqli_close($con);
+	return $retval;
 }
 
 
