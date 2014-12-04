@@ -11,36 +11,31 @@
           });
         </script>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,700,300,600' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="scripts/slick/slick.css"/>
         <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
         <meta class="viewport" name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="scripts/scroller/jquery.mCustomScrollbar.css" />
-        <script src="scripts/scroller/jquery.mCustomScrollbar.concat.min.js"></script>
-        <script src="scripts/noscroll.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
         <script src="https://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
         <link rel="stylesheet" href="stylesheets/style2.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
     </head>
     <body>
-        <div class="wrapper wrapper-single">      
-        <div class="content-single">
-            <a class="logo" href="/temp/webroot"></a>
+        <div class="wrapper wrapper-single">     
             <div class="left-box">
             <?php $artists = selectSpotlightArtists(); 
-            echo "<span>";
             foreach($artists as $artist) { ?>
+                <div style="width: 25%; margin-left: 75px;">
                 <a href="profile.php?id=<?php echo $artist[1]; ?>"><img src="images/profile/<?php echo $artist[6]; ?>" class="profile-picture" /></a>
+                </div>
            <? } ?>
-            </span>
-            </div>
-            <div class="right-box">
+            </div>        
+        <div class="content-single">
               <?php $submissions = selectSpotlightSubmissions();
               
                   foreach($submissions as $submission) { ?>
                     <div class="content-wrapper" data-id="<?php echo $submission['id']; ?>">
                       <? if($submission['medium'] == 'image') {
                         ?>
-                      <div class="content-presentation picture"
-                        style="background: url('submissions/image/<?php echo $submission['filename'].".".$submission['extension']; ?>') center center no-repeat;">
-                      </div>
+                      <img class="content-presentation picture"
+                        src='submissions/image/<?php echo $submission['filename'].".".$submission['extension']; ?>' />
                       <? } ?>
                       <? if($submission['medium'] == 'text') {
                         ?>
@@ -93,7 +88,6 @@
                    </div>
                    <? } ?>
         </div>
-        </div>
         <div class="left-sidebar">
         <?php include('left-sidebar.php'); ?>
         </div>
@@ -103,7 +97,12 @@
         <div class="darkfilter"></div>
         <div class="register-box"></div>
         <div class="login-box"></div>
-        <script src="scripts/profile.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
+        <link rel="stylesheet" href="scripts/perfect-scrollbar-0.5.7/min/perfect-scrollbar.min.css" />
+        <script src="scripts/perfect-scrollbar-0.5.7/min/perfect-scrollbar.min.js"></script>
+        <script src="scripts/imagesloaded.pkgd.min.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
+        <script src="scripts/masonry.pkgd.min.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
+        <script src="scripts/profile-spotlight.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
+        <script type="text/javascript" src="scripts/slick/slick.min.js"></script>
         <script src="scripts/login-register.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
     <?php include('topnav.php'); ?>
     </body>

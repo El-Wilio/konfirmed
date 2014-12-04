@@ -50,8 +50,13 @@ include_once('../code/backbone.php');
       <div class="left-sidebar">
      <?php include('left-sidebar.php'); ?>
      </div>
-     <script src="scripts/login-register.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
-     <script src="scripts/profile.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
+    <link rel="stylesheet" href="scripts/perfect-scrollbar-0.5.7/min/perfect-scrollbar.min.css" />
+    <script src="scripts/perfect-scrollbar-0.5.7/min/perfect-scrollbar.min.js"></script>
+    <script src="scripts/login-register.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
+    <script src="scripts/spotlightArtist.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
+    <script src="scripts/imagesloaded.pkgd.min.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
+    <script src="scripts/masonry.pkgd.min.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
+    <script src="scripts/profile.js?<?php echo date('l jS \of F Y h:i:s A'); ?>"></script>
     </body>
     
 </html>

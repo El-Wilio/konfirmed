@@ -20,9 +20,9 @@ body {
     min-height: 380px;
 }
 
-p, li , a, input, h1, h2, h3, h4, h5, h6, span{
+p, li , input, h1, h2, h3, h4, h5, h6, span{
     color: #313131;
-    font-family: 'Quattrocento', sans-serif;
+    font-family: 'Signika', sans-serif;
 }
 
 ul.category-table >li > a {
@@ -78,6 +78,16 @@ p.notice {
 a {
     text-decoration: none;
     transition: color 0.5s;
+}
+
+a {
+    color: #aaaaaa;
+    text-decoration: none;
+    transition: color 0.5s;
+}
+
+a:hover {
+  color: #bababa;
 }
 
 img.close-it {

@@ -194,6 +194,14 @@ if($_POST['type'] == 'iconPopulator') {
 
 if($_POST['type'] == 'login') {
    if(login($_POST['email'], $_POST['password'])) {
+        
+        if(isProfileEmpty()) {
+            $con = connectToDatabase();
+            $result = mysqli_query($con, "Select id from account where username = '" . $_SESSION['LoggedInAs'] . "'");
+            $row = mysqli_fetch_array($result);
+            $accountID = $row['id'];
+            initializeProfile($accountID);
+        }
         echo "success";
     }
     else {
@@ -249,6 +257,7 @@ if($_POST['type'] == 'setProfile') {
   echo updateProfile(1,$_POST['fname'],$_POST['lname'],$_POST['displayPic'],$_POST['loc'],$_POST['gender'],$birthday,$_POST['bio'],$_POST['occupation']);  
 }
 
+
 if($_POST['type'] == 'temp_profile') {
   
   $new_filename = selectLoggedInAccountID().'.png';
@@ -303,7 +312,7 @@ if($_POST['type'] == 'newImageSubmission') {
   $genre = $_POST['genre'];
   $genres = explode(',', $genre);
   $tag = $_POST['tag'];
-  $tags = explode(',', $tag);
+  $tags = explode(' ', $tag);
   foreach($tags as &$tag) {
     $tag = trim($tag);
   }
@@ -430,18 +439,27 @@ if($_POST['type'] == 'newTextSubmission') {
 }
 
 if($_POST['type'] == 'getSubmissions') {
+   $i = 0;
+
    $submissions = selectGroupSubmission($_POST['id'], $_POST['start'], 3);
-   foreach($submissions as $submission) { ?>
+
+   foreach($submissions as $submission) { 
+
+   ?>
         <div class="content-wrapper" data-id="<?php echo $submission['id']; ?>">
           <? if($submission['medium'] == 'image') {
             ?>
-          <div class="content-presentation picture" 
-            style="background: url('submissions/image/<?php echo $submission['filename'].".".$submission['extension']; ?>') center center no-repeat;">
+          <div class="image-holder">
+              <img class="content-presentation picture"
+                src='submissions/image/<?php echo $submission['filename'].".".$submission['extension']; ?>' />
+              <div class="image-overlay" data-id="<?php echo $submission['id']; ?>"></div>
           </div>
           <? } ?>
           <? if($submission['medium'] == 'video') {
             $youtubeID = end(explode("/", $submission['filename']));
           ?>
+          <h1 class="clickable"><a href="submission.php?id=<?php echo $submission['id']; ?>"><? echo $submission['title']; ?></a></h1>
+          <p class="content-date">On <?php echo interpretDate($submission['date_submitted']); ?></p>  
           <div class="content-presentation video2">
            <iframe width="100%" height="345px" src="//www.youtube.com/embed/<?php echo $youtubeID; ?>" frameborder="0" allowfullscreen></iframe>
           </div>
@@ -449,6 +467,8 @@ if($_POST['type'] == 'getSubmissions') {
           <? if($submission['medium'] == 'audio') {
             $track_url = $submission['filename'];
             ?>
+          <h1 class="clickable"><a href="submission.php?id=<?php echo $submission['id']; ?>"><? echo $submission['title']; ?></a></h1>
+          <p class="content-date">On <?php echo interpretDate($submission['date_submitted']); ?></p>  
           <div class="content-presentation content-audio-<?php echo $submission['id']; ?> audio2">
                 <script>
                     $(function() {
@@ -471,6 +491,8 @@ if($_POST['type'] == 'getSubmissions') {
           </div>
           <? } ?>
           <? if($submission['medium'] == 'text') { ?>
+          <h1 class="clickable"><a href="submission.php?id=<?php echo $submission['id']; ?>"><? echo $submission['title']; ?></a></h1>
+          <p class="content-date">On <?php echo interpretDate($submission['date_submitted']); ?></p>  
           <div class="content-presentation text-box">
             <?
               $handle = fopen('submissions/'.$submission['medium'].'/'.$submission['filename'].'.txt', "r");
@@ -484,10 +506,10 @@ if($_POST['type'] == 'getSubmissions') {
             fclose($handle); ?>
           </div>
           <? } ?>
-          <h1 class="clickable"><a href="submission.php?id=<?php echo $submission['id']; ?>"><? echo $submission['title']; ?></a></h1>
-          <p class="content-date">On <?php echo interpretDate($submission['date_submitted']); ?></p>  
        </div>
-       <? }
+       <?
+
+        }
 }
 
 if($_POST['type'] == 'deleteSubmission') {
@@ -545,6 +567,58 @@ if($_POST['type'] == 'requestBrowse') {
     <? 
  
 }
+
+if($_POST['type'] == 'updateOneValue') {
+
+    $result = updateOneValue($_POST['id'], $_POST['columnName'], $_POST['value']);
+    if($result == $_POST['value']) {
+        updateOneValue($_POST['id'], 'updated', '1');
+    }
+
+    echo $result;
+    
+}
+
+if($_POST['type'] == 'setProfileImage') {
+  
+  $new_filename = selectLoggedInAccountID().'.png';
+  
+  $target_dir = "images/profile/";
+  $target_dir = $target_dir . $new_filename;
+  
+  if(file_exists($target_dir)) {
+    unlink($target_dir);
+  }
+  
+  foreach($_FILES as $file) {
+    if (move_uploaded_file($file['tmp_name'], $target_dir)) {
+      echo $new_filename;
+    } else {
+
+    }
+  }
+}
+
+if($_POST['type'] == 'setBannerImage') {
+  
+  $new_filename = selectLoggedInAccountID().'.png';
+  
+  $target_dir = "images/banner/";
+  $target_dir = $target_dir . $new_filename;
+  
+  if(file_exists($target_dir)) {
+    unlink($target_dir);
+  }
+  
+  foreach($_FILES as $file) {
+    if (move_uploaded_file($file['tmp_name'], $target_dir)) {
+      echo $new_filename;
+    } else {
+
+    }
+  }
+}
+
 
 if($_POST['type'] == 'goBack') { ?>
         <h1 class="text">Browse</h1>

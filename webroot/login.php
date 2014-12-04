@@ -24,7 +24,7 @@ $(function() {
                         $('.error').html("I'm sorry, but it appears that the username or password is wrong.");
                     }
                     else if(data == "success") {
-                        location.replace("http://www.konfirmed.com/temp/webroot/ajaxRequest.php?login=true");
+                        location.replace("http://www.konfirmed.com/temp/webroot/profile.php");
                     }
                 },
                 error: function() {console.log('nope')}

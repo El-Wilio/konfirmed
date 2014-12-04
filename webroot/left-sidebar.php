@@ -1,5 +1,5 @@
-<a class="logo-2" href="/temp/webroot"></a>
-            <ul class="menu-items-2 inline center">
+<a href="/temp/webroot" class="home-link">K O N F I R M E D</a>
+    <ul class="menu-items-2 inline center">
                 <li class="second-row"><div class="image art-2 box-2"></div></li><!--
                 --><li class="second-row"><div class="video photography-2 box-2"></div></li><!--
                 --><li><div class="text writer-2 box-2"></div></li><!--
@@ -7,11 +7,10 @@
             </ul>
 <ul class="left-sidebar-content">
     <ul class="left-sidebar-subcontent">
-        <li><a href="#" class="categories-click">Account</a></li>
+        <li><a href="#" class="categories-click"><i class="fa fa-user fa-lg"></i><span class="spacing">Account</span></a></li>
         <div class="stuff-block">
             <?php if(isLoggedIn()) { ?>
             <li><a href="profile.php">Profile</a></li>
-            <li><a href="editProfile.php">Edit Profile</a></li>
             <li><a href="logout.php">Logout</a></li>
             <? } else {?>
             <li><a href="#" class="login-click">Login</a></li>
@@ -20,7 +19,7 @@
         </div>
     </ul>
     <ul class="left-sidebar-subcontent">
-        <li><a href="#" class="categories-click">Submissions</a></li>
+        <li><a href="#" class="categories-click"><i class="fa fa-exchange fa-lg"></i><span class="spacing">Submissions</span></a></li>
         <div class="stuff-block">
             <?php if(isLoggedIn()) { ?>
             <li><a href="submission.php?new">Add new submission</a></li>
@@ -31,7 +30,7 @@
         </div>
     </ul>
     <ul class="left-sidebar-subcontent">
-        <li><a href="#" class="categories-click">Spotlight Artists</a></li>
+        <li><a href="#" class="categories-click"><i class="fa fa-star fa-lg"></i><span class="spacing">Spotlight Artists</span></a></li>
         <div class="stuff-block">
             <?php $artists = selectSpotlightArtists(); 
                 foreach($artists as $artist) { ?>
@@ -40,7 +39,7 @@
         </div>
     </ul>
     <ul class="left-sidebar-subcontent">
-        <li><a href="#" class="categories-click">Spotlight Submissions</a></li>
+        <li><a href="#" class="categories-click"><i class="fa fa-star fa-lg"></i><span class="spacing">Spotlight Submissions</span></a></li>
         <div class="stuff-block">
         <?php $submissions = selectSpotlightSubmissions();
             foreach($submissions as $submission) { ?>

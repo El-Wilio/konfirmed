@@ -109,6 +109,17 @@ function selectAccountSubmissions($accountID) {
 	return $submissions;
 }
 
+function updateOneValue($id, $column_name, $new_value) {
+    $answer = '';
+    $con = connectToDatabase();
+    $query = 'UPDATE profile SET '.$column_name.'="'.$new_value.'" WHERE id='.$id;
+    $result = mysqli_query($con, $query);
+    if($result) $answer = $new_value;
+    else $answer = "failure";
+    mysqli_close($con);
+    return $answer;
+}
+
 function selectLastFiveSubmissions($accountID) {
 	$con = connectToDatabase();
 	//1. Get all submissions 
@@ -403,17 +414,19 @@ function selectGroupSubmission($accountID, $start, $repetition) {
 	//1. Get all submissions 
 	$result = mysqli_query($con, "Select * from submission where id > " . $start . " AND id_account = " . $accountID . " LIMIT ". $repetition);
 	$submissions = array();
-	while($submission = mysqli_fetch_array($result)) {
-		$mediumText = selectMedium($submission['id_medium']);
-		$submission['medium'] = $mediumText;
-		$genres = selectGenres($submission['id']);
-		$submission['genres'] = $genres;
-		$tags = selectTags($submission['id']);
-		$submission['tags'] = $tags;
-		$rating = getRating($submission['id']);
-		$submission['rating'] = $rating;
-		array_push($submissions, $submission);
-	}
+    if($result != false) {
+        while($submission = mysqli_fetch_array($result)) {
+            $mediumText = selectMedium($submission['id_medium']);
+            $submission['medium'] = $mediumText;
+            $genres = selectGenres($submission['id']);
+            $submission['genres'] = $genres;
+            $tags = selectTags($submission['id']);
+            $submission['tags'] = $tags;
+            $rating = getRating($submission['id']);
+            $submission['rating'] = $rating;
+            array_push($submissions, $submission);
+        }
+    }
 	mysqli_close($con);
 	return $submissions;
 }

@@ -30,4 +30,15 @@
 		session_destroy();
 	}
 
+ 
+    function initializeProfile($account_id) {
+        $success = false;
+        $con = connectToDatabase();
+        $query = 'INSERT INTO profile (id_account) VALUES ('.$account_id.')';
+        $result = mysqli_query($con, $query);
+        if($result == true) $success = true;
+        mysqli_close($con);
+        return $success;
+    }
+    
 ?>
